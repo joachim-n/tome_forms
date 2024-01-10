@@ -44,7 +44,12 @@ class StaticFormSubscriber implements EventSubscriberInterface {
     $tome_form_storage = $this->entityTypeManager->getStorage('tome_form');
     $tome_form_entities = $tome_form_storage->loadMultiple();
     /** @var \Drupal\tome_forms\Entity\TomeFormInterface */
-    foreach ($tome_form_entities as $tome_form_entity) {
+    foreach ($tome_form_entities as $tome_form_entity_id => $tome_form_entity) {
+      // Add the path for the form's PHP script.
+      // TODO: build this with the Url class and the route name!
+      $event->addPath('/tome-form-handler/' . $tome_form_entity_id);
+
+      // Add any additional paths for the form.
       foreach ($tome_form_entity->getPaths() as $path) {
         $event->addPath($path);
       }
@@ -58,10 +63,13 @@ class StaticFormSubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function modifyDestination(ModifyDestinationEvent $event) {
-    // $destination = $event->getDestination();
+    $destination = $event->getDestination();
 
-    // if ($destination == static::PATH) {
-    //   $event->setDestination('static_contact_form_action.php');
+    if (str_starts_with($destination, '/tome-form-handler/')) {
+      $destination .= '.php';
+      dump($destination);
+      $event->setDestination($destination);
+    }
     // }
   }
 
