@@ -58,9 +58,6 @@ can be configured in the Tome form config entity.
   frankencode.
 - Consider whether to make the spam protection pluggable - are other methods of
   spam protection possible?
-- Refactor script creation methods so the following are done in the base class
-  - form ID check
-  - honeypot check
 - Allow static forms to redirect to a custom path, e.g. a confirmation message
 - Supply a basic confirmation message page?
 - Add a form handler plugin to post to a REST endpoint?
