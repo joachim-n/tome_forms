@@ -76,49 +76,41 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormHandlerScriptPhp(TomeFormInterface $tome_form): string {
     $php = $this->getScriptHeader($tome_form);
 
     // TODO! this script is too specific to the old contact form!
 
-    /// TODO! move the form ID check and the honeypot check to
-    // common code in the base class.
-
     $php .= <<<'EOPHP'
       $cc = ''; // TODO
 
-      if (isset($_POST['form_id']) && ($_POST['form_id'] === $form_id)) {
-        if (empty($_POST['h_mail'])) {
-          $form_submitter = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); // this is the sender's Email address
-          $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-          $subject = "Form submission on " . $_POST['host'];
-          $message = $name . " wrote the following:" . "\n\n" . filter_var($_POST['message'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      $form_submitter = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); // this is the sender's Email address
+      $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      $subject = "Form submission on " . $_POST['host'];
+      $message = $name . " wrote the following:" . "\n\n" . filter_var($_POST['message'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-          $headers = [
-            'From: ' . $site_mail,
-            'Cc: ' . $cc,
-            'Reply-To: ' . $form_submitter,
-          ];
-          // Send email to yourself, with form values.
-          mail($mailto,$subject,$message,implode("\r\n", $headers));
+      $headers = [
+        'From: ' . $site_mail,
+        'Cc: ' . $cc,
+        'Reply-To: ' . $form_submitter,
+      ];
+      // Send email to yourself, with form values.
+      mail($mailto,$subject,$message,implode("\r\n", $headers));
 
-          if ($_POST['send_copy']) {
-            // Prepare a copy to send to the submitter of the form.
-            $subject2 = "Copy of your form submission";
-            $message2 = $name . " here is a copy of your message: \n\n" . $_POST['message'];
-            $headers2 = "From:" . $mailto;
-            mail($form_submitter,$subject2,$message2,$headers2);
-          }
-
-          // Redirect back to site.
-          $location = 'Location: ' . $_POST['return_to'];
-          header($location);
-        }
+      if ($_POST['send_copy']) {
+        // Prepare a copy to send to the submitter of the form.
+        $subject2 = "Copy of your form submission";
+        $message2 = $name . " here is a copy of your message: \n\n" . $_POST['message'];
+        $headers2 = "From:" . $mailto;
+        mail($form_submitter,$subject2,$message2,$headers2);
       }
-      else {
-        // If you somehow landed on the script without submitting the form, go to the frontpage.
-        header('Location: /');
-      }
+
+      // Redirect back to site.
+      $location = 'Location: ' . $_POST['return_to'];
+      header($location);
       EOPHP;
 
     return $php;

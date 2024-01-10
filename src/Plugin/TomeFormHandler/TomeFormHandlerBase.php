@@ -10,17 +10,29 @@ use Drupal\tome_forms\Entity\TomeFormInterface;
  */
 abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandlerInterface {
 
-  // TODO docs
+  /**
+   * Gets the header for the PHP script.
+   *
+   * All plugins should begin their script with this code.
+   *
+   * This does the following:
+   *  - Defines variables for:
+   *    - the form ID
+   *    - the plugin configuration (see self::getScriptPluginConfigurationVariables())
+   *    - various other site properties TODO.
+   *  - Checks the form ID.
+   *  - Checks the honeypot.
+   *
+   * @return string
+   *   The PHP code.
+   */
   protected function getScriptHeader(TomeFormInterface $tome_form): string {
     $php_lines = [];
 
     $php_lines[] = '<?php';
 
     // Add the plugin configuration values to the script.
-    // WARNING: This is not very subtle and assumes each configuration setting
-    // is a scalar!
-    // TODO move this bit to another helper method so it can be overridden.
-    $script_variables = $this->configuration ?? [];
+    $script_variables = $this->getScriptPluginConfigurationVariables();
 
     $script_variables['form_id'] = $tome_form->getFormId();
 
@@ -31,7 +43,32 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
       $php_lines[] = '$' . $key . ' = ' . var_export($value, TRUE) . ';';
     }
 
-    return implode("\n", $php_lines) . "\n";
+    // Verification code.
+    $php_lines[] = '// Verify the form ID.';
+    $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { header(\'Location: /\'); exit(); }';
+
+    $php_lines[] = '// Verify the honeypot.';
+    $php_lines[] = 'if (!empty($_POST[\'h_mail\'])) { header(\'Location: /\'); exit(); }';
+
+    $php = implode("\n", $php_lines) . "\n";
+
+    return $php;
+  }
+
+  /**
+   * Gets the plugin's configuration values to add to the script as variables.
+   *
+   * WARNING: This is not very subtle and assumes each configuration value is a
+   * scalar. If your plugin does something more complex, override this method to
+   * massage the values.
+   *
+   * @return array
+   *   An array whose keys are used as variable names in the PHP script, and
+   *   whose values are the values for those variables, exported with
+   *   var_export().
+   */
+  protected function getScriptPluginConfigurationVariables(): array {
+    return $this->configuration ?? [];
   }
 
 }

@@ -12,13 +12,15 @@ use Drupal\tome_forms\Entity\TomeFormInterface;
 interface TomeFormHandlerInterface extends PluginInspectionInterface, DerivativeInspectionInterface {
 
   /**
-   * Undocumented function
+   * Gets the PHP code for the form handler script.
    *
-   * TODO: all scripts get these vars provided they use HELPER TODO
-   *  form_id
+   * All plugins should begin their script with getScriptHeader().
    *
    * @param \Drupal\tome_forms\Entity\TomeFormInterface $tome_form
+   *   The Tome form entity.
+   *
    * @return string
+   *   The PHP code to write to the script file as part of the Tome export.
    */
   public function getFormHandlerScriptPhp(TomeFormInterface $tome_form): string;
 
