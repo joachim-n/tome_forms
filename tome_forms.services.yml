@@ -1,7 +1,9 @@
 services:
   tome_forms.static_form_subscriber:
-    class: Drupal\tome_forms\StaticFormSubscriber
+    class: Drupal\tome_forms\EventSubscriber\StaticFormSubscriber
     arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber, priority: '0' }
 
   plugin.manager.tome_form_handler:
     class: Drupal\tome_forms\TomeFormHandlerManager
