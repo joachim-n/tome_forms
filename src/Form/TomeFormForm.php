@@ -84,6 +84,7 @@ class TomeFormForm extends EntityForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    // TODO: only one entity can act on a particular form ID!
     parent::validateForm($form, $form_state);
   }
 
