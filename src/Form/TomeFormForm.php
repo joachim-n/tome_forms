@@ -20,7 +20,7 @@ class TomeFormForm extends EntityForm {
     $form['label'] = [
       '#type' => "textfield",
       '#title' => $this->t("Name"),
-      '#description' => $this->t("The human-readable name of this Tome form"),
+      '#description' => $this->t("The human-readable name of this Tome form."),
       '#default_value' => $this->entity->get('label'),
       '#required' => TRUE,
     ];
@@ -56,6 +56,7 @@ class TomeFormForm extends EntityForm {
     $form['form_handler'] = [
       '#type' => 'tome_form_handler_plugin',
       '#title' => $this->t('Form handler'),
+      '#description' => $this->t('Determines what happens when the static version of the form is submitted.'),
       '#required' => TRUE,
       '#default_value' => [
         'plugin_id' => $this->entity->get('form_handler_id'),
