@@ -85,11 +85,20 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   protected $pluginCollection;
 
+  public function getFormId(): string {
+    return $this->form_id;
+  }
+
   /**
    * {@inheritdoc}
    */
   public function getPaths(): array {
     return $this->paths;
+  }
+
+  public function getFormHandlerExportedScriptPath(): string {
+    // TODO: build this with the Url class and the route name!
+    return '/tome-form-handler/' . $this->id() . '.php';
   }
 
   public function getFormHandlerScriptPhp(): string {

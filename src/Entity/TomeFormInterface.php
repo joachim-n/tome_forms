@@ -10,6 +10,11 @@ use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
  */
 interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface {
 
+  public function getFormId(): string;
+
+  public function getFormHandlerExportedScriptPath(): string;
+
+  // TODO rename
   public function getPaths(): array;
 
   public function getFormHandlerScriptPhp(): string;

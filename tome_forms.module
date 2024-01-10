@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\tome_static\StaticGeneratorInterface;
 
 /**
  * Implements hook_help().
@@ -25,17 +26,34 @@ function tome_forms_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_form_alter().
  */
 function tome_forms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  return;
+  // Alter forms that are configured to be exported as Tome static forms so that
+  // they are submitted to the form handler PHP script.
+  // Only act within a Tome export request.
+  $request = \Drupal::request();
+  if ($request->attributes->get(StaticGeneratorInterface::REQUEST_KEY) != StaticGeneratorInterface::REQUEST_KEY) {
+    return;
+  }
 
-  if (isset($form['type']) && $form['type']['#value'] . '_node_settings' == $form_id) {
-    $upload_enabled_types = \Drupal::config('mymodule.settings')->get('upload_enabled_types');
-    $form['workflow']['upload_' . $form['type']['#value']] = [
-      '#type' => 'radios',
-      '#title' => t('Attachments'),
-      '#default_value' => in_array($form['type']['#value'], $upload_enabled_types) ? 1 : 0,
-      '#options' => [t('Disabled'), t('Enabled')],
-    ];
-    // Add a custom submit handler to save the array of types back to the config file.
-    $form['actions']['submit']['#submit'][] = 'mymodule_upload_enabled_types_submit';
+  $tome_form_storage = \Drupal::service('entity_type.manager')->getStorage('tome_form');
+  $tome_form_entities = $tome_form_storage->loadMultiple();
+  /** @var \Drupal\tome_forms\Entity\TomeFormInterface */
+  foreach ($tome_form_entities as $tome_form_entity_id => $tome_form_entity) {
+    // Only act on the Tome form entity for this form, if one exists.
+    if ($tome_form_entity->getFormId() != $form_id) {
+      continue;
+    }
+
+    // TODO: add the honeypot element.
+
+    // TODO: hides the honeypot element
+    // $form['#attached']['library'] = 'static_site_contact_form/styles';
+
+    // Set the form action to the form handler script for this Tome form entity
+    // and ensure the form method is POST.
+    $form['#action'] = $tome_form_entity->getFormHandlerExportedScriptPath();
+    $form['#method'] = 'post';
+
+    // Only one Tome form entity should act on a single form, so we're done.
+    return;
   }
 }
