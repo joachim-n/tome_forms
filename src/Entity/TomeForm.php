@@ -3,14 +3,15 @@
 namespace Drupal\tome_forms\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
 
 /**
  * Provides the Tome Form entity.
  *
  * @ConfigEntityType(
  *   id = "tome_form",
- *   label = @Translation("Tome Form"),
- *   label_collection = @Translation("Tome Forms"),
+ *   label = @Translation("Tome form"),
+ *   label_collection = @Translation("Tome forms"),
  *   label_singular = @Translation("tome form"),
  *   label_plural = @Translation("tome forms"),
  *   label_count = @PluralTranslation(
@@ -36,6 +37,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "id",
  *     "label",
  *     "form_id",
+ *     "form_handler_id",
+ *     "form_handler_config",
  *   },
  *   links = {
  *     "add-form" = "/admin/structure/tome_form/add",
@@ -68,5 +71,35 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    * @var string
    */
   protected $form_id = '';
+
+  protected $form_handler_id = '';
+
+  protected $form_handler_config = [];
+
+  /**
+   * The plugin collection that holds the backend plugin. TODO
+   *
+   * @var \Drupal\advancedqueue\BackendPluginCollection TODO
+   */
+  protected $pluginCollection;
+
+  public function getPluginCollections() {
+    return [
+      'form_handler' => $this->getBackendCollection(),
+    ];
+  }
+
+  protected function getBackendCollection() {
+    if (!$this->pluginCollection) {
+      $plugin_manager = \Drupal::service('plugin.manager.tome_form_handler');
+      $this->pluginCollection = new DefaultSingleLazyPluginCollection(
+        $plugin_manager,
+        $this->form_handler_id,
+        $this->form_handler_config,
+      );
+    }
+    return $this->pluginCollection;
+  }
+
 
 }
