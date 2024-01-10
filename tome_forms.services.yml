@@ -5,3 +5,6 @@ services:
   plugin.manager.tome_forms_static_form_handler:
     class: Drupal\tome_forms\StaticFormHandlerManager
     parent: default_plugin_manager
+  plugin.manager.tome_forms_tome_form_handler:
+    class: Drupal\tome_forms\TomeFormHandlerManager
+    parent: default_plugin_manager
