@@ -43,7 +43,13 @@ function tome_forms_form_alter(&$form, FormStateInterface $form_state, $form_id)
       continue;
     }
 
-    // TODO: add the honeypot element.
+    // Since captcha might be bypassed without JS, and Drupal will not be there
+    // to validate the submission, we add a honeypot inspired element which we
+    // hide with CSS and evaluate on the action script.
+    $form['h_mail'] = [
+      '#type' => 'email',
+      '#title' => t('Verify email (only enter this if you are not human'),
+    ];
 
     // TODO: hides the honeypot element
     // $form['#attached']['library'] = 'static_site_contact_form/styles';
