@@ -1,0 +1,6 @@
+entity.tome_form.add:
+  title: 'Add Tome Form'
+  route_name: entity.tome_form.add_form
+  weight: 15
+  appears_on:
+    - entity.tome_form.collection

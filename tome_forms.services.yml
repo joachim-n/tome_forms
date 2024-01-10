@@ -1,0 +1,7 @@
+services:
+  tome_forms.static_form_subscriber:
+    class: Drupal\tome_forms\StaticFormSubscriber
+    arguments: ['@entity_type.manager']
+  plugin.manager.tome_forms_static_form_handler:
+    class: Drupal\tome_forms\StaticFormHandlerManager
+    parent: default_plugin_manager

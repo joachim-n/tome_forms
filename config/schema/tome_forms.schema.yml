@@ -1,0 +1,14 @@
+'tome_forms.tome_form.*':
+  type: config_entity
+  label: 'Tome Form'
+  mapping:
+    id:
+      type: text
+      label: 'Machine name'
+    label:
+      type: label
+      label: Name
+    form_id:
+      type: string
+      label: 'Form Id'
+

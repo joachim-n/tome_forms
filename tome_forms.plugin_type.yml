@@ -1,0 +1,4 @@
+tome_forms.static_form_handler:
+  label: 'Static Form Handler'
+  plugin_manager_service_id: plugin.manager.tome_forms_static_form_handler
+  plugin_definition_decorator_class: Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
