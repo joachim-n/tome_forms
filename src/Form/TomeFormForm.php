@@ -58,6 +58,7 @@ class TomeFormForm extends EntityForm {
       '#title' => $this->t('Form handler'),
       '#description' => $this->t('Determines what happens when the static version of the form is submitted.'),
       '#required' => TRUE,
+      '#options_element_type' => 'radios',
       '#default_value' => [
         'plugin_id' => $this->entity->get('form_handler_id'),
         'plugin_configuration' => $this->entity->get('form_handler_config'),
