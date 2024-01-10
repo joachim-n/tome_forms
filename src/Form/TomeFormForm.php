@@ -60,10 +60,10 @@ class TomeFormForm extends EntityForm {
   protected function copyFormValuesToEntity(EntityInterface $entity, array $form, FormStateInterface $form_state) {
     parent::copyFormValuesToEntity($entity, $form, $form_state);
 
-    // $entity->set('plugin_id', $form_state->getValue(['plugin', 'plugin_id']));
-    // $entity->set('plugin_config', $form_state->getValue(['plugin', 'plugin_configuration']) ?? []);
+    $entity->set('form_id', $form_state->getValue('tome_form_id'));
 
-    // $entity->set('link_style', $form_state->getValue(['link_style']));
+    $entity->set('form_handler_id', $form_state->getValue(['form_handler', 'plugin_id']));
+    $entity->set('form_handler_config', $form_state->getValue(['form_handler', 'plugin_configuration']) ?? []);
   }
 
   /**
