@@ -35,7 +35,8 @@ class StaticFormSubscriber implements EventSubscriberInterface {
   /**
    * Reacts to a collect paths event.
    *
-   * Adds any paths from tome form entities to the Tome exported paths.
+   * Adds the script handler path and any additional paths from tome form
+   * entities to the Tome exported paths.
    *
    * @param \Drupal\tome_static\Event\CollectPathsEvent $event
    *   The collect paths event.
