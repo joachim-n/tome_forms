@@ -20,6 +20,7 @@ use Drupal\tome_forms\Entity\TomeFormInterface;
  * @TomeFormHandler(
  *   id = "mail",
  *   label = @Translation("Mail"),
+ *   description = @Translation("Sends an email containing the form data."),
  * )
  */
 class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginFormInterface {
