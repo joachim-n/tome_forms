@@ -80,6 +80,9 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
 
     // TODO! this script is too specific to the old contact form!
 
+    /// TODO! move the form ID check and the honeypot check to
+    // common code in the base class.
+
     $php .= <<<'EOPHP'
       $cc = ''; // TODO
 
