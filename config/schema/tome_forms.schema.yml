@@ -11,4 +11,13 @@
     form_id:
       type: string
       label: 'Form Id'
-
+    paths:
+      type: string
+      label: 'Paths'
+    form_handler_id:
+      type: string
+      label: 'Form handler plugin ID'
+    form_handler_config:
+      # @todo expand!
+      type: ignore
+      label: 'Form handler plugin configuration'
