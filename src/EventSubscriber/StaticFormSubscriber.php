@@ -35,11 +35,20 @@ class StaticFormSubscriber implements EventSubscriberInterface {
   /**
    * Reacts to a collect paths event.
    *
+   * Adds any paths from tome form entities to the Tome exported paths.
+   *
    * @param \Drupal\tome_static\Event\CollectPathsEvent $event
    *   The collect paths event.
    */
   public function collectPaths(CollectPathsEvent $event) {
-    // $event->addPath(static::PATH);
+    $tome_form_storage = $this->entityTypeManager->getStorage('tome_form');
+    $tome_form_entities = $tome_form_storage->loadMultiple();
+    /** @var \Drupal\tome_forms\Entity\TomeFormInterface */
+    foreach ($tome_form_entities as $tome_form_entity) {
+      foreach ($tome_form_entity->getPaths() as $path) {
+        $event->addPath($path);
+      }
+    }
   }
 
   /**
@@ -63,6 +72,7 @@ class StaticFormSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     $events[TomeStaticEvents::COLLECT_PATHS][] = ['collectPaths'];
     $events[TomeStaticEvents::MODIFY_DESTINATION][] = ['modifyDestination'];
+    return $events;
   }
 
 }
