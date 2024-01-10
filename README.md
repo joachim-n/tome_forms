@@ -1,6 +1,7 @@
 # Tome Forms
 
-TODO: write some documentation.
+This module allows Drupal forms to be exported a Tome static site, with the form
+submission handled in a variety of ways.
 
 This module is inspired by the [Static Site Contact Form
 module](https://www.drupal.org/project/static_site_contact_form).
@@ -22,6 +23,10 @@ information, see
 1. Go to Administration › Structure › Tome forms.
 2. Click 'Add Tome form' to create a new Tome form configuration.
 3. Enter the form ID of a form to use as a Tome static form.
+4. Optionally, enter paths to export in Tome. If the path(s) on which your form
+   is shown are already exported by Tome, leave this empty.
+5. Select a form handler to use for this form. This determines what happens when
+   the static version of the form is submitted.
 
 ## Usage
 
@@ -59,3 +64,5 @@ can be configured in the Tome form config entity.
 - Allow static forms to redirect to a custom path, e.g. a confirmation message
 - Supply a basic confirmation message page?
 - Add a form handler plugin to post to a REST endpoint?
+- Consider adding a setting to output the form ID on every form, to help
+  non-devs set up forms.
