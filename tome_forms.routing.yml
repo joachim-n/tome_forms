@@ -1,14 +1,9 @@
-tome_forms.tome_form_handler.fixed.plugin_id:
-  path: '/tome-form-handler/fixed/{plugin_id}'
+tome_forms.tome_form_handler_export:
+  path: '/tome-form-handler/{tome_form}'
   defaults:
-    _title: myPage
-    _controller: '\Drupal\tome_forms\Controller\TomeFormHandlerFixedPluginIdController::content'
+    _title: Tome form handler
+    _controller: '\Drupal\tome_forms\Controller\TomeFormHandlerExportController::content'
   requirements:
-    _access: 'TRUE'
-tome_forms.tome_form_handler.dynamic.tome_form:
-  path: '/tome-form-handler/dynamic/{tome_form}'
-  defaults:
-    _title: myPage
-    _controller: '\Drupal\tome_forms\Controller\TomeFormHandlerDynamicTomeFormController::content'
-  requirements:
+    # TODO: Consider access control that checks for either an admin permission,
+    # or the Tome request attribute.
     _access: 'TRUE'
