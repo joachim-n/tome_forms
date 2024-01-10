@@ -84,6 +84,16 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   protected $pluginCollection;
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getPaths(): array {
+    return $this->paths;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPluginCollections() {
     $collections = [];
     if ($collection = $this->getTomeFormHandlerCollection()) {
@@ -103,6 +113,5 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
     }
     return $this->pluginCollection;
   }
-
 
 }

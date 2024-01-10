@@ -10,4 +10,6 @@ use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
  */
 interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface {
 
+  public function getPaths(): array;
+
 }
