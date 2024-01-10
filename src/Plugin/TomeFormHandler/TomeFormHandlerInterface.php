@@ -10,4 +10,6 @@ use Drupal\Component\Plugin\PluginInspectionInterface;
  */
 interface TomeFormHandlerInterface extends PluginInspectionInterface, DerivativeInspectionInterface {
 
+  public function getFormHandlerScriptPhp(): string;
+
 }

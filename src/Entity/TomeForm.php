@@ -4,6 +4,7 @@ namespace Drupal\tome_forms\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
+use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
 
 /**
  * Provides the Tome Form entity.
@@ -89,6 +90,17 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   public function getPaths(): array {
     return $this->paths;
+  }
+
+  public function getFormHandlerScriptPhp(): string {
+    return $this->getFormHandlerPlugin()->getFormHandlerScriptPhp();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormHandlerPlugin(): TomeFormHandlerInterface {
+    return $this->getTomeFormHandlerCollection()->get($this->form_handler_id);
   }
 
   /**
