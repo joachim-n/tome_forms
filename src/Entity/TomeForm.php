@@ -84,13 +84,15 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   protected $pluginCollection;
 
   public function getPluginCollections() {
-    return [
-      'form_handler' => $this->getBackendCollection(),
-    ];
+    $collections = [];
+    if ($collection = $this->getTomeFormHandlerCollection()) {
+      $collections['form_handler'] = $collection;
+    }
+    return $collections;
   }
 
-  protected function getBackendCollection() {
-    if (!$this->pluginCollection) {
+  protected function getTomeFormHandlerCollection() {
+    if (!$this->pluginCollection && $this->form_handler_id) {
       $plugin_manager = \Drupal::service('plugin.manager.tome_form_handler');
       $this->pluginCollection = new DefaultSingleLazyPluginCollection(
         $plugin_manager,

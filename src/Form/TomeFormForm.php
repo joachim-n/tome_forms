@@ -3,6 +3,7 @@
 namespace Drupal\tome_forms\Form;
 
 use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -19,7 +20,7 @@ class TomeFormForm extends EntityForm {
     $form['label'] = [
       '#type' => "textfield",
       '#title' => $this->t("Name"),
-      '#description' => $this->t("The human-readable name of this entity"),
+      '#description' => $this->t("The human-readable name of this Tome form"),
       '#default_value' => $this->entity->get('label'),
     ];
     $form['id'] = [
@@ -32,14 +33,37 @@ class TomeFormForm extends EntityForm {
         'source' => ['label'],
       ],
     ];
-    $form['form_id'] = [
+    // Can't call this 'form_id', it gets clobbered by FormBuilder.
+    $form['tome_form_id'] = [
       '#type' => "textfield",
-      '#title' => $this->t("Form Id"),
-      '#description' => $this->t("TODO: enter a description."),
+      '#title' => $this->t("Form ID"),
+      '#description' => $this->t("The form ID of the form to export to Tome."),
       '#default_value' => $this->entity->get('form_id'),
     ];
 
+    $form['form_handler'] = [
+      '#type' => 'tome_form_handler_plugin',
+      '#title' => $this->t('Form handler'),
+      '#required' => TRUE,
+      '#default_value' => [
+        'plugin_id' => $this->entity->get('form_handler_id'),
+        'plugin_configuration' => $this->entity->get('form_handler_config'),
+      ],
+    ];
+
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function copyFormValuesToEntity(EntityInterface $entity, array $form, FormStateInterface $form_state) {
+    parent::copyFormValuesToEntity($entity, $form, $form_state);
+
+    // $entity->set('plugin_id', $form_state->getValue(['plugin', 'plugin_id']));
+    // $entity->set('plugin_config', $form_state->getValue(['plugin', 'plugin_configuration']) ?? []);
+
+    // $entity->set('link_style', $form_state->getValue(['link_style']));
   }
 
   /**
@@ -60,10 +84,19 @@ class TomeFormForm extends EntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
-    $saved = parent::save($form, $form_state);
+    $status = parent::save($form, $form_state);
+
+    $t_args = ['%name' => $this->entity->label()];
+    if ($status == SAVED_UPDATED) {
+      $this->messenger()->addStatus($this->t('The tome form %name has been updated.', $t_args));
+    }
+    elseif ($status == SAVED_NEW) {
+      $this->messenger()->addStatus($this->t('The tome form %name has been added.', $t_args));
+    }
+
     $form_state->setRedirectUrl($this->entity->toUrl('collection'));
 
-    return $saved;
+    return $status;
   }
 
 }

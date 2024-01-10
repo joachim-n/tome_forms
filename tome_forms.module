@@ -25,6 +25,8 @@ function tome_forms_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_form_alter().
  */
 function tome_forms_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  return;
+
   if (isset($form['type']) && $form['type']['#value'] . '_node_settings' == $form_id) {
     $upload_enabled_types = \Drupal::config('mymodule.settings')->get('upload_enabled_types');
     $form['workflow']['upload_' . $form['type']['#value']] = [
