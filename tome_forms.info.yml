@@ -1,8 +1,7 @@
 name: 'Tome Forms'
 type: module
-description: 'TODO: Description of module'
+description: 'Allows forms to be exported a Tome static site.'
 package: Tome
-core_version_requirement: '^8 || ^9 || ^10'
+core_version_requirement: '^9 || ^10'
 dependencies:
-  - tome_static
   - 'tome:tome_static'

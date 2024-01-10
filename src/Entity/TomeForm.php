@@ -79,9 +79,9 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   protected $form_handler_config = [];
 
   /**
-   * The plugin collection that holds the backend plugin. TODO
+   * The plugin collection that holds the form handler plugin.
    *
-   * @var \Drupal\advancedqueue\BackendPluginCollection TODO
+   * @var \Drupal\Core\Plugin\DefaultSingleLazyPluginCollection
    */
   protected $pluginCollection;
 
