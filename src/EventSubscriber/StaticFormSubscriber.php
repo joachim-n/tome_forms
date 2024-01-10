@@ -9,7 +9,7 @@ use Drupal\tome_static\Event\TomeStaticEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * TODO: class docs.
+ * Subscribes to Tome events to output the PHP script files for forms.
  */
 class StaticFormSubscriber implements EventSubscriberInterface {
 
@@ -59,6 +59,9 @@ class StaticFormSubscriber implements EventSubscriberInterface {
   /**
    * Reacts to a modify destination event.
    *
+   * Renames the destination for our script paths so they are saved by Tome as
+   * PHP files rather than an index.html file.
+   *
    * @param \Drupal\tome_static\Event\ModifyDestinationEvent $event
    *   The event.
    */
@@ -67,12 +70,9 @@ class StaticFormSubscriber implements EventSubscriberInterface {
 
     if (str_starts_with($destination, '/tome-form-handler/')) {
       $destination .= '.php';
-      dump($destination);
       $event->setDestination($destination);
     }
-    // }
   }
-
 
   /**
    * {@inheritdoc}
