@@ -72,14 +72,10 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
   }
 
   public function getFormHandlerScriptPhp(): string {
-    // TODO: insert configuration values!
-    return <<<'EOPHP'
-      <?php
+    $php = $this->getScriptHeader();
 
-      // Instantiate Script. You MUST edit these values:
-      $to = 'you@example.com';
-      $cc = '';
-      $site_mail = 'site@example.com';
+    $php .= <<<'EOPHP'
+      $cc = ''; // TODO
 
       if (isset($_POST['form_id']) && ($_POST['form_id'] === 'static_site_contact_form')) {
         if (empty($_POST['h_mail'])) {
@@ -94,13 +90,13 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
             'Reply-To: ' . $form_submitter,
           ];
           // Send email to yourself, with form values.
-          mail($to,$subject,$message,implode("\r\n", $headers));
+          mail($mailto,$subject,$message,implode("\r\n", $headers));
 
           if ($_POST['send_copy']) {
             // Prepare a copy to send to the submitter of the form.
             $subject2 = "Copy of your form submission";
             $message2 = $name . " here is a copy of your message: \n\n" . $_POST['message'];
-            $headers2 = "From:" . $to;
+            $headers2 = "From:" . $mailto;
             mail($form_submitter,$subject2,$message2,$headers2);
           }
 
@@ -113,7 +109,9 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
         // If you somehow landed on the script without submitting the form, go to the frontpage.
         header('Location: /');
       }
-    EOPHP;
+      EOPHP;
+
+    return $php;
   }
 
 }
