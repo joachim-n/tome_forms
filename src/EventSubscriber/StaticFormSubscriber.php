@@ -51,7 +51,7 @@ class StaticFormSubscriber implements EventSubscriberInterface {
       $event->addPath('/tome-form-handler/' . $tome_form_entity_id);
 
       // Add any additional paths for the form.
-      foreach ($tome_form_entity->getPaths() as $path) {
+      foreach ($tome_form_entity->getExportPaths() as $path) {
         $event->addPath($path);
       }
     }

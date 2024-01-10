@@ -92,7 +92,7 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   /**
    * {@inheritdoc}
    */
-  public function getPaths(): array {
+  public function getExportPaths(): array {
     return $this->paths;
   }
 
