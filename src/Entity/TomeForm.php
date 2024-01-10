@@ -37,6 +37,7 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *     "id",
  *     "label",
  *     "form_id",
+ *     "paths",
  *     "form_handler_id",
  *     "form_handler_config",
  *   },

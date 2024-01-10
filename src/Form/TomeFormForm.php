@@ -22,6 +22,7 @@ class TomeFormForm extends EntityForm {
       '#title' => $this->t("Name"),
       '#description' => $this->t("The human-readable name of this Tome form"),
       '#default_value' => $this->entity->get('label'),
+      '#required' => TRUE,
     ];
     $form['id'] = [
       '#type' => "machine_name",
@@ -32,13 +33,24 @@ class TomeFormForm extends EntityForm {
         'exists' => ['Drupal\tome_forms\Entity\TomeForm', 'load'],
         'source' => ['label'],
       ],
+      '#required' => TRUE,
     ];
+
     // Can't call this 'form_id', it gets clobbered by FormBuilder.
     $form['tome_form_id'] = [
       '#type' => "textfield",
       '#title' => $this->t("Form ID"),
       '#description' => $this->t("The form ID of the form to export to Tome."),
       '#default_value' => $this->entity->get('form_id'),
+      '#required' => TRUE,
+    ];
+
+    $form['paths'] = [
+      '#type' => "textarea",
+      '#title' => $this->t("Paths"),
+      '#description' => $this->t("Optional paths to export to Tome. One path per line, with initial '/'."),
+      '#default_value' => $this->entity->get('paths') ? implode("\n", $this->entity->get('paths')) : '',
+      // TODO: validate initial /.
     ];
 
     $form['form_handler'] = [
@@ -61,6 +73,8 @@ class TomeFormForm extends EntityForm {
     parent::copyFormValuesToEntity($entity, $form, $form_state);
 
     $entity->set('form_id', $form_state->getValue('tome_form_id'));
+
+    $entity->set('paths', explode("\n", $form_state->getValue('paths')));
 
     $entity->set('form_handler_id', $form_state->getValue(['form_handler', 'plugin_id']));
     $entity->set('form_handler_config', $form_state->getValue(['form_handler', 'plugin_configuration']) ?? []);
