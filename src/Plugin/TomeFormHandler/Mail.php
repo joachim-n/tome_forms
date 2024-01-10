@@ -2,17 +2,77 @@
 
 namespace Drupal\tome_forms\Plugin\TomeFormHandler;
 
+use Drupal\Component\Plugin\ConfigurableInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+
 /**
  * TODO: class docs.
+ *
+ * @todo Remove methods for ConfigurableInterface when
+ * https://www.drupal.org/project/drupal/issues/2852463 gets in.
  *
  * @TomeFormHandler(
  *   id = "mail",
  *   label = @Translation("Mail"),
  * )
  */
-class Mail extends TomeFormHandlerBase {
+class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginFormInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return [
+      'mailto' => '',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConfiguration(array $configuration) {
+    // Merge in default configuration.
+    $this->configuration = $configuration + $this->defaultConfiguration();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $element, FormStateInterface $form_state) {
+    $element['mailto'] = [
+      '#type' => 'email',
+      '#title' => $this->t("Address to e-mail the form submission."),
+      '#required' => TRUE,
+    ];
+
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
 
   public function getFormHandlerScriptPhp(): string {
+    // TODO: insert configuration values!
     return <<<'EOPHP'
       <?php
 
@@ -20,9 +80,8 @@ class Mail extends TomeFormHandlerBase {
       $to = 'you@example.com';
       $cc = '';
       $site_mail = 'site@example.com';
-      $script_is_ready = FALSE; // Change to true when the above are correct!
 
-      if ($script_is_ready && isset($_POST['form_id']) && ($_POST['form_id'] === 'static_site_contact_form')) {
+      if (isset($_POST['form_id']) && ($_POST['form_id'] === 'static_site_contact_form')) {
         if (empty($_POST['h_mail'])) {
           $form_submitter = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); // this is the sender's Email address
           $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
