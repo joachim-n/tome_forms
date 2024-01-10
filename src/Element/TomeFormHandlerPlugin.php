@@ -14,7 +14,7 @@ use Drupal\Core\Render\Element\FormElement;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Form element for selecting and configuring a tome form hanbdler plugin.
+ * Form element for selecting and configuring a tome form handler plugin.
  *
  * Plugins that implement both \Drupal\Core\Plugin\PluginFormInterface and
  * \Drupal\Component\Plugin\ConfigurableInterface will show the plugin's
