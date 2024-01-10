@@ -6,9 +6,13 @@ use Drupal\Component\Plugin\ConfigurableInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\tome_forms\Entity\TomeFormInterface;
 
 /**
- * TODO: class docs.
+ * Form handler for sending the form data in an email.
+ *
+ * Heavily inspired by the static_site_contact_form module
+ * (https://www.drupal.org/project/static_site_contact_form).
  *
  * @todo Remove methods for ConfigurableInterface when
  * https://www.drupal.org/project/drupal/issues/2852463 gets in.
@@ -71,13 +75,15 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
   }
 
-  public function getFormHandlerScriptPhp(): string {
-    $php = $this->getScriptHeader();
+  public function getFormHandlerScriptPhp(TomeFormInterface $tome_form): string {
+    $php = $this->getScriptHeader($tome_form);
+
+    // TODO! this script is too specific to the old contact form!
 
     $php .= <<<'EOPHP'
       $cc = ''; // TODO
 
-      if (isset($_POST['form_id']) && ($_POST['form_id'] === 'static_site_contact_form')) {
+      if (isset($_POST['form_id']) && ($_POST['form_id'] === $form_id)) {
         if (empty($_POST['h_mail'])) {
           $form_submitter = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); // this is the sender's Email address
           $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);

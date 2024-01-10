@@ -102,7 +102,7 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   }
 
   public function getFormHandlerScriptPhp(): string {
-    return $this->getFormHandlerPlugin()->getFormHandlerScriptPhp();
+    return $this->getFormHandlerPlugin()->getFormHandlerScriptPhp($this);
   }
 
   /**
