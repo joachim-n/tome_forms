@@ -94,7 +94,20 @@ class TomeFormForm extends EntityForm {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    // TODO: only one entity can act on a particular form ID!
+    // Only one Tome form entity can act on a particular form ID.
+    $existing_tome_forms_for_form_id = $this->entityTypeManager->getStorage('tome_form')->loadByProperties([
+      'form_id' => $form_state->getValue('tome_form_id'),
+    ]);
+    unset($existing_tome_forms_for_form_id[$this->entity->id()]);
+    unset($existing_tome_forms_for_form_id[$this->entity->getOriginalId()]);
+    if (count($existing_tome_forms_for_form_id)) {
+      $existing = reset($existing_tome_forms_for_form_id);
+      $form_state->setErrorByName('tome_form_id', $this->t("Cannot use the same form ID in more than one Tome form configuration. The form ID '@form_id' is already targetted by the %label Tome form.", [
+        '@form_id' => $form_state->getValue('tome_form_id'),
+        '%label' => $existing->label(),
+      ]));
+    }
+
     parent::validateForm($form, $form_state);
   }
 
