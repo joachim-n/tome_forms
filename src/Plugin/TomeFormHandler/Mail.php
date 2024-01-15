@@ -109,8 +109,7 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
       }
 
       // Redirect back to site.
-      $location = 'Location: ' . $_POST['return_to'];
-      header($location);
+      redirect();
       EOPHP;
 
     return $php;

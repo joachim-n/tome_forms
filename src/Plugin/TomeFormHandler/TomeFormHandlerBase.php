@@ -20,6 +20,8 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
    *    - the form ID
    *    - the plugin configuration (see self::getScriptPluginConfigurationVariables())
    *    - various other site properties TODO.
+   *  - Defines a redirect() function which sends the user to the front page of
+   *    the site.
    *  - Checks the form ID.
    *  - Checks the honeypot.
    *
@@ -43,12 +45,15 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
       $php_lines[] = '$' . $key . ' = ' . var_export($value, TRUE) . ';';
     }
 
+    // Helper function for redirecting.
+    $php_lines[] = 'function redirect() { header(\'Location: /\'); exit(); }';
+
     // Verification code.
     $php_lines[] = '// Verify the form ID.';
-    $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { header(\'Location: /\'); exit(); }';
+    $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { redirect(); }';
 
     $php_lines[] = '// Verify the honeypot.';
-    $php_lines[] = 'if (!empty($_POST[\'h_mail\'])) { header(\'Location: /\'); exit(); }';
+    $php_lines[] = 'if (!empty($_POST[\'h_mail\'])) { redirect(); }';
 
     $php = implode("\n", $php_lines) . "\n";
 
