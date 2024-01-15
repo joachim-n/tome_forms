@@ -1,0 +1,8 @@
+tome_forms:
+  version: 1.x
+  css:
+    base:
+      css/tome-forms.css: {  }
+  dependencies:
+    - core/jquery
+    - core/drupal

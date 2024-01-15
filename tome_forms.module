@@ -51,8 +51,8 @@ function tome_forms_form_alter(&$form, FormStateInterface $form_state, $form_id)
       '#title' => t('Verify email (only enter this if you are not human'),
     ];
 
-    // TODO: hides the honeypot element
-    // $form['#attached']['library'] = 'static_site_contact_form/styles';
+    // Hides the honeypot element.
+    $form['#attached']['library'] = 'tome_forms/tome_forms';
 
     // Set the form action to the form handler script for this Tome form entity
     // and ensure the form method is POST.
