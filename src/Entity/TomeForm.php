@@ -74,8 +74,18 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   protected $form_id = '';
 
+  /**
+   * The ID of the form handler plugin this form uses for static submission.
+   *
+   * @var string
+   */
   protected $form_handler_id = '';
 
+  /**
+   * The configuration for the form handler plugin.
+   *
+   * @var array
+   */
   protected $form_handler_config = [];
 
   /**
@@ -96,11 +106,17 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
     return $this->paths;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormHandlerExportedScriptPath(): string {
     // TODO: build this with the Url class and the route name!
     return '/tome-form-handler/' . $this->id() . '.php';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormHandlerScriptPhp(): string {
     return $this->getFormHandlerPlugin()->getFormHandlerScriptPhp($this);
   }
@@ -123,6 +139,9 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
     return $collections;
   }
 
+  /**
+   * Gets the plugin collection for the form handler plugin.
+   */
   protected function getTomeFormHandlerCollection() {
     if (!$this->pluginCollection && $this->form_handler_id) {
       $plugin_manager = \Drupal::service('plugin.manager.tome_form_handler');
