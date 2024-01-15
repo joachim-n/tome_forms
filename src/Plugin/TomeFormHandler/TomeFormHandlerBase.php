@@ -46,7 +46,8 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
     }
 
     // Helper function for redirecting.
-    $php_lines[] = 'function redirect() { header(\'Location: /\'); exit(); }';
+    $redirect_path = $tome_form->getRedirectPath();
+    $php_lines[] = "function redirect() { header('Location: $redirect_path'); exit(); }";
 
     // Verification code.
     $php_lines[] = '// Verify the form ID.';

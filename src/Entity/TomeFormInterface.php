@@ -36,6 +36,14 @@ interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginColle
   public function getExportPaths(): array;
 
   /**
+   * Gets the path to redirect to after static form submission.
+   *
+   * @return string
+   *   A path.
+   */
+  public function getRedirectPath(): string;
+
+  /**
    * Gets the PHP code for the form handler script.
    *
    * @return string

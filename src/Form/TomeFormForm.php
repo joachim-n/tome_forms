@@ -53,6 +53,14 @@ class TomeFormForm extends EntityForm {
       // TODO: validate initial /.
     ];
 
+    $form['redirect_path'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t("Redirect URL"),
+      '#description' => $this->t("The URL to redirect users when the static form is submitted. Leave empty to redirect to the front page of the static site."),
+      '#default_value' => $this->entity->get('redirect_path'),
+      // TODO: validate initial /.
+    ];
+
     $form['form_handler'] = [
       '#type' => 'tome_form_handler_plugin',
       '#title' => $this->t('Form handler'),

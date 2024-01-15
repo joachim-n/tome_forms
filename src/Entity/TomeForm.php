@@ -39,6 +39,7 @@ use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
  *     "label",
  *     "form_id",
  *     "export_paths",
+ *     "redirect_path",
  *     "form_handler_id",
  *     "form_handler_config",
  *   },
@@ -82,6 +83,13 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   protected $export_paths = [];
 
   /**
+   * The path to redirect the user to on submission of the static form.
+   *
+   * @var string
+   */
+  protected $redirect_path = '';
+
+  /**
    * The ID of the form handler plugin this form uses for static submission.
    *
    * @var string
@@ -102,6 +110,9 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   protected $pluginCollection;
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormId(): string {
     return $this->form_id;
   }
@@ -111,6 +122,14 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   public function getExportPaths(): array {
     return $this->export_paths;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRedirectPath(): string {
+    // Default to the front page if the property is empty.
+    return $this->redirect_path ?: '/';
   }
 
   /**
