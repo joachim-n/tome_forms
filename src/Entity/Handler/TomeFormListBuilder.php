@@ -16,6 +16,8 @@ class TomeFormListBuilder extends EntityListBuilder {
   public function buildHeader() {
     $header = [];
     $header['name'] = $this->t('Name');
+    $header['form_id'] = $this->t('Form ID');
+    $header['form_handler'] = $this->t('Form handler');
     return $header + parent::buildHeader();
   }
 
@@ -24,7 +26,10 @@ class TomeFormListBuilder extends EntityListBuilder {
    */
   public function buildRow(EntityInterface $entity) {
     $row = [];
+    /** @var \Drupal\tome_forms\Entity\TomeFormInterface $entity */
     $row['name'] = $entity->label();
+    $row['form_id'] = $entity->getFormId();
+    $row['form_handler'] = $entity->getFormHandlerPlugin()->getPluginDefinition()['label'];
     return $row + parent::buildRow($entity);
   }
 
