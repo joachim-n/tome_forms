@@ -38,7 +38,7 @@ use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
  *     "id",
  *     "label",
  *     "form_id",
- *     "paths",
+ *     "export_paths",
  *     "form_handler_id",
  *     "form_handler_config",
  *   },
@@ -75,6 +75,13 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   protected $form_id = '';
 
   /**
+   * A list of paths to export with Tome.
+   *
+   * @var array
+   */
+  protected $export_paths = [];
+
+  /**
    * The ID of the form handler plugin this form uses for static submission.
    *
    * @var string
@@ -103,7 +110,7 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    * {@inheritdoc}
    */
   public function getExportPaths(): array {
-    return $this->paths;
+    return $this->export_paths;
   }
 
   /**

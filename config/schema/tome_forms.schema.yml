@@ -11,9 +11,9 @@
     form_id:
       type: string
       label: 'Form Id'
-    paths:
-      type: string
-      label: 'Paths'
+    export_paths:
+      type: sequence
+      label: 'Export paths'
     form_handler_id:
       type: string
       label: 'Form handler plugin ID'

@@ -45,11 +45,11 @@ class TomeFormForm extends EntityForm {
       '#required' => TRUE,
     ];
 
-    $form['paths'] = [
+    $form['export_paths'] = [
       '#type' => "textarea",
-      '#title' => $this->t("Paths"),
+      '#title' => $this->t("Export paths"),
       '#description' => $this->t("Optional paths to export to Tome. One path per line, with initial '/'."),
-      '#default_value' => $this->entity->get('paths') ? implode("\n", $this->entity->get('paths')) : '',
+      '#default_value' => $this->entity->get('export_paths') ? implode("\n", $this->entity->get('export_paths')) : '',
       // TODO: validate initial /.
     ];
 
@@ -76,7 +76,7 @@ class TomeFormForm extends EntityForm {
 
     $entity->set('form_id', $form_state->getValue('tome_form_id'));
 
-    $entity->set('paths', explode("\n", $form_state->getValue('paths')));
+    $entity->set('export_paths', explode("\n", $form_state->getValue('export_paths')));
 
     $entity->set('form_handler_id', $form_state->getValue(['form_handler', 'plugin_id']));
     $entity->set('form_handler_config', $form_state->getValue(['form_handler', 'plugin_configuration']) ?? []);
