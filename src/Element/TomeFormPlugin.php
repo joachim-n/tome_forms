@@ -24,9 +24,9 @@ use Symfony\Component\HttpFoundation\Request;
  * https://www.drupal.org/project/plugin/issues/3197304 is fixed. Any changes to
  * this class should be submitted to the merge request on that issue.
  *
- * @FormElement("tome_form_handler_plugin")
+ * @FormElement("tome_form_plugin")
  */
-class TomeFormHandlerPlugin extends FormElement {
+class TomeFormPlugin extends FormElement {
 
   /**
    * {@inheritdoc}
@@ -43,6 +43,7 @@ class TomeFormHandlerPlugin extends FormElement {
         [$class, 'processPlugin'],
       ],
       '#options_element_type' => 'select',
+      '#plugin_manager' => '',
     ];
   }
 
@@ -122,7 +123,7 @@ class TomeFormHandlerPlugin extends FormElement {
     $options = [];
 
     $plugins_method = $element['#plugins_method'] ?? 'getDefinitions';
-    foreach (static::getPluginManager()->{$plugins_method}() as $plugin_id => $plugin_definition) {
+    foreach (static::getPluginManager($element)->{$plugins_method}() as $plugin_id => $plugin_definition) {
       $options[$plugin_id] = $plugin_definition['label'];
 
       // Add plugin descriptions to radios, if they exist.
@@ -139,7 +140,7 @@ class TomeFormHandlerPlugin extends FormElement {
       // the defaults from the form element are merged with the plugin's
       // defaults. From this point on, the authority on the plugin's
       // configuration is the configuration held by the plugin object.
-      $plugin = static::getPluginManager()->createInstance($selected_plugin_id, $element['#default_value']['plugin_configuration']);
+      $plugin = static::getPluginManager($element)->createInstance($selected_plugin_id, $element['#default_value']['plugin_configuration']);
 
       if ($plugin instanceof PluginFormInterface && $plugin instanceof ConfigurableInterface) {
         $plugin_subform = [
@@ -205,7 +206,7 @@ class TomeFormHandlerPlugin extends FormElement {
     $plugin_id_parents[] = 'plugin_id';
     $selected_plugin_id = $form_state->getValue($plugin_id_parents);
     if ($selected_plugin_id) {
-      $plugin = static::getPluginManager()->createInstance($selected_plugin_id);
+      $plugin = static::getPluginManager($element)->createInstance($selected_plugin_id);
       if ($plugin instanceof PluginFormInterface) {
         $plugin->validateConfigurationForm($element['container']['plugin_configuration'], SubformState::createForSubform($element['container']['plugin_configuration'], $form_state->getCompleteForm(), $form_state));
       }
@@ -241,9 +242,8 @@ class TomeFormHandlerPlugin extends FormElement {
    * @return mixed
    *   The plugin manager service for the plugin type.
    */
-  protected static function getPluginManager() {
-    // Hardcoded for now, generalise later!
-    return \Drupal::service('plugin.manager.tome_form_handler');
+  protected static function getPluginManager($element) {
+    return \Drupal::service($element['#plugin_manager']);
   }
 
 }
