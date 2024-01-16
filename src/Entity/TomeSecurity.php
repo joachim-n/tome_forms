@@ -69,6 +69,13 @@ class TomeSecurity extends ConfigEntityBase implements TomeSecurityInterface {
   protected $security_plugin_config = [];
 
   /**
+   * The plugin collection that holds the security plugin.
+   *
+   * @var \Drupal\Core\Plugin\DefaultSingleLazyPluginCollection
+   */
+  protected $pluginCollection;
+
+  /**
    * {@inheritdoc}
    */
   public function getPluginCollections() {

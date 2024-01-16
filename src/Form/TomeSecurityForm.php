@@ -33,6 +33,19 @@ class TomeSecurityForm extends EntityForm {
       ],
     ];
 
+    $form['security'] = [
+      '#type' => 'tome_form_plugin',
+      '#title' => $this->t('Security handler'),
+      '#description' => $this->t('The type of security handler to use.'),
+      '#required' => TRUE,
+      '#options_element_type' => 'radios',
+      '#plugin_manager' => 'plugin.manager.tome_form_security',
+      '#default_value' => [
+        'plugin_id' => $this->entity->get('security_plugin_id'),
+        'plugin_configuration' => $this->entity->get('security_plugin_config'),
+      ],
+    ];
+
     return $form;
   }
 
