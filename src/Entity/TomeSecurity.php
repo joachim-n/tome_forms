@@ -9,7 +9,7 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  * Provides the Tome Security entity.
  *
  * @ConfigEntityType(
- *   id = "tome_security",
+ *   id = "tome_form_security",
  *   label = @Translation("Tome security"),
  *   label_collection = @Translation("Tome security handlers"),
  *   label_singular = @Translation("tome security"),
@@ -28,7 +28,7 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *     },
  *     "list_builder" = "Drupal\tome_forms\Entity\Handler\TomeSecurityListBuilder",
  *   },
- *   admin_permission = "administer tome_security entities",
+ *   admin_permission = "administer tome_form_security entities",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
@@ -40,11 +40,11 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *     "security_plugin_config",
  *   },
  *   links = {
- *     "add-form" = "/admin/config/tome/static/tome_security/add",
- *     "canonical" = "/admin/config/tome/static/tome_security/{tome_security}",
- *     "collection" = "/admin/config/tome/static/tome_security",
- *     "edit-form" = "/admin/config/tome/static/tome_security/{tome_security}/edit",
- *     "delete-form" = "/admin/config/tome/static/tome_security/{tome_security}/delete",
+ *     "add-form" = "/admin/config/tome/static/tome_form_security/add",
+ *     "canonical" = "/admin/config/tome/static/tome_form_security/{tome_form_security}",
+ *     "collection" = "/admin/config/tome/static/tome_form_security",
+ *     "edit-form" = "/admin/config/tome/static/tome_form_security/{tome_form_security}/edit",
+ *     "delete-form" = "/admin/config/tome/static/tome_form_security/{tome_form_security}/delete",
  *   },
  * )
  */
