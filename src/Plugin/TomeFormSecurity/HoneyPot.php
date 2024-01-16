@@ -6,7 +6,7 @@ namespace Drupal\tome_forms\Plugin\TomeFormSecurity;
  * TODO: class docs.
  *
  * @TomeFormSecurity(
- *   id = "tome_forms_honey_pot",
+ *   id = "honey_pot",
  *   label = @Translation("Honey Pot"),
  * )
  */
