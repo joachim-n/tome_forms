@@ -3,3 +3,10 @@ honey_pot:
   css:
     base:
       css/honey-pot.css: {  }
+form_token:
+  version: 1.x
+  js:
+    js/form-token.js: {  }
+  dependencies:
+    - core/drupal
+    - core/drupalSettings

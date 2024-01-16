@@ -26,11 +26,14 @@ class FormToken extends TomeFormSecurityHandlerBase {
    * {@inheritdoc}
    */
   public function formAlter(&$form, FormStateInterface $form_state, TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): void {
-    // ARH but JS!
     $form['tome_form_token'] = [
       '#type' => 'token',
-      '#default_value' => $this->getFormToken($tome_form),
+      // Gets set by the JavaScript.
+      '#default_value' => '',
     ];
+
+    $form['#attached']['library'][] = 'tome_forms/form_token';
+    $form['#attached']['drupalSettings']['tome_forms']['formTokenPath'] = $tome_form->getFormHandlerExportedScriptPath();
   }
 
   /**
