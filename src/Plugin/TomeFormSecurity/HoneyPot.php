@@ -11,7 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @TomeFormSecurity(
  *   id = "honey_pot",
- *   label = @Translation("Honey Pot"),
+ *   label = @Translation("Honey pot"),
  * )
  */
 class HoneyPot extends TomeFormSecurityBase {
