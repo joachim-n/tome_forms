@@ -22,5 +22,16 @@ function hook_tome_form_handler_info_alter(array &$info) {
 }
 
 /**
+ * Perform alterations on Tome Form Security definitions.
+ *
+ * @param array &$info
+ *   Array of information on Tome Form Security plugins.
+ */
+function hook_tome_form_security_info_alter(array &$info) {
+  // Change the class of the 'foo' plugin.
+  $info['foo']['class'] = SomeOtherClass::class;
+}
+
+/**
  * @} End of "addtogroup hooks".
  */
