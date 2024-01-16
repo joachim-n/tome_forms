@@ -78,12 +78,12 @@ class TomeFormSecurity extends ConfigEntityBase implements TomeFormSecurityInter
    */
   protected $pluginCollection;
 
-  public function formAlter(&$form, FormStateInterface $form_state): void {
-    $this->getFormSecurityHandlerPlugin()->formAlter($form, $form_state);
+  public function formAlter(&$form, FormStateInterface $form_state, TomeFormInterface $tome_form): void {
+    $this->getFormSecurityHandlerPlugin()->formAlter($form, $form_state, $tome_form, $this);
   }
 
-  public function getFormHandlerScriptSecurityCheckPhp(): array {
-    return $this->getFormSecurityHandlerPlugin()->getFormHandlerScriptSecurityCheckPhp($this);
+  public function getFormHandlerScriptSecurityCheckPhp(TomeFormInterface $tome_form): array {
+    return $this->getFormSecurityHandlerPlugin()->getFormHandlerScriptSecurityCheckPhp($tome_form, $this);
   }
 
   /**

@@ -11,6 +11,6 @@ use Drupal\Core\Form\FormStateInterface;
  */
 interface TomeFormSecurityInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface {
 
-  public function formAlter(&$form, FormStateInterface $form_state): void;
+  public function formAlter(&$form, FormStateInterface $form_state, TomeFormInterface $tome_form): void;
 
 }

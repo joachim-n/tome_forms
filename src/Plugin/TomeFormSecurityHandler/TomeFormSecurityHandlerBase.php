@@ -16,7 +16,7 @@ abstract class TomeFormSecurityHandlerBase extends PluginBase implements TomeFor
   }
 
   // or only on local???
-  public function getFormHandlerScriptSecurityCheckPhp(): array {
+  public function getFormHandlerScriptSecurityCheckPhp(TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): array {
     return [];
   }
 }

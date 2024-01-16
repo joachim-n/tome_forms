@@ -15,6 +15,6 @@ interface TomeFormSecurityHandlerInterface extends PluginInspectionInterface, De
 
   public function formAlter(&$form, FormStateInterface $form_state, TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): void;
 
-  public function getFormHandlerScriptSecurityCheckPhp(): array;
+  public function getFormHandlerScriptSecurityCheckPhp(TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): array;
 
 }

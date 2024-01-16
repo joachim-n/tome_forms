@@ -37,7 +37,7 @@ class HoneyPot extends TomeFormSecurityHandlerBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormHandlerScriptSecurityCheckPhp(): array {
+  public function getFormHandlerScriptSecurityCheckPhp(TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): array {
     $php_lines = [];
 
     $php_lines[] = '// Verify the honeypot.';

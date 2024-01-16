@@ -141,7 +141,7 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   public function formAlter(&$form, FormStateInterface $form_state): void {
     // Allow the form security entities to alter the form.
     foreach ($this->getFormSecurityHandlers() as $form_security_handler) {
-      $form_security_handler->formAlter($form, $form_state);
+      $form_security_handler->formAlter($form, $form_state, $this);
     }
   }
 

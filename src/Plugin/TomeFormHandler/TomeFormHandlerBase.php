@@ -59,7 +59,7 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
 
     // Verification code: security handlers.
     foreach ($tome_form->getFormSecurityHandlers() as $form_security_handler) {
-      $php_lines = array_merge($php_lines, $form_security_handler->getFormHandlerScriptSecurityCheckPhp());
+      $php_lines = array_merge($php_lines, $form_security_handler->getFormHandlerScriptSecurityCheckPhp($tome_form));
     }
 
     $php = implode("\n", $php_lines) . "\n";
