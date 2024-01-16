@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityListBuilder;
 /**
  * Provides the list builder handler for the Tome Security entity.
  */
-class TomeSecurityListBuilder extends EntityListBuilder {
+class TomeFormSecurityListBuilder extends EntityListBuilder {
 
   /**
    * {@inheritdoc}

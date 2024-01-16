@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Provides the default form handler for the Tome Security entity.
  */
-class TomeSecurityForm extends EntityForm {
+class TomeFormSecurityForm extends EntityForm {
 
   /**
    * {@inheritdoc}

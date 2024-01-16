@@ -61,6 +61,17 @@ class TomeFormForm extends EntityForm {
       // TODO: validate initial /.
     ];
 
+    $options = [];
+    $security_entities = $this->entityTypeManager->getStorage()->loadMultiple();
+
+    $form['security'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t("Security handling"),
+      '#description' => $this->t("Select which security handling to use with this form on the static site."),
+      '#options' => [],
+      '#default_value' => $this->entity->get('security'),
+    ];
+
     $form['form_handler'] = [
       '#type' => 'tome_form_plugin',
       '#title' => $this->t('Form handler'),

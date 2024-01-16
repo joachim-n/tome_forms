@@ -6,7 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
 
 /**
- * Provides the Tome Security entity.
+ * Provides the Tome Form Security entity.
  *
  * @ConfigEntityType(
  *   id = "tome_form_security",
@@ -23,10 +23,10 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
  *     },
  *     "form" = {
- *       "default" = "Drupal\tome_forms\Form\TomeSecurityForm",
+ *       "default" = "Drupal\tome_forms\Form\TomeFormSecurityForm",
  *       "delete" = "Drupal\Core\Entity\EntityDeleteForm",
  *     },
- *     "list_builder" = "Drupal\tome_forms\Entity\Handler\TomeSecurityListBuilder",
+ *     "list_builder" = "Drupal\tome_forms\Entity\Handler\TomeFormSecurityListBuilder",
  *   },
  *   admin_permission = "administer tome_form_security entities",
  *   entity_keys = {
