@@ -3,6 +3,7 @@
 namespace Drupal\tome_forms\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
 
 /**
  * Provides the Tome Security entity.
@@ -35,6 +36,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   config_export = {
  *     "id",
  *     "label",
+ *     "security_plugin_id",
+ *     "security_plugin_config",
  *   },
  *   links = {
  *     "add-form" = "/admin/structure/tome_security/add",
@@ -60,5 +63,35 @@ class TomeSecurity extends ConfigEntityBase implements TomeSecurityInterface {
    * @var string
    */
   protected $label = '';
+
+  protected $security_plugin_id = '';
+
+  protected $security_plugin_config = [];
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPluginCollections() {
+    $collections = [];
+    if ($collection = $this->getTomeFormSecurityCollection()) {
+      $collections['security'] = $collection;
+    }
+    return $collections;
+  }
+
+  /**
+   * Gets the plugin collection for the form handler plugin.
+   */
+  protected function getTomeFormSecurityCollection() {
+    if (!$this->pluginCollection && $this->security_plugin_id) {
+      $plugin_manager = \Drupal::service('plugin.manager.tome_form_security');
+      $this->pluginCollection = new DefaultSingleLazyPluginCollection(
+        $plugin_manager,
+        $this->security_plugin_id,
+        $this->security_plugin_config,
+      );
+    }
+    return $this->pluginCollection;
+  }
 
 }
