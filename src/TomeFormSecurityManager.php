@@ -6,7 +6,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\tome_forms\Annotation\TomeFormSecurity;
-use Drupal\tome_forms\Plugin\TomeFormSecurity\TomeFormSecurityInterface;
+use Drupal\tome_forms\Plugin\TomeFormSecurityHandler\TomeFormSecurityHandlerInterface;
 
 /**
  * Manages discovery and instantiation of Tome Form Security plugins.
@@ -30,10 +30,10 @@ class TomeFormSecurityManager extends DefaultPluginManager {
     ModuleHandlerInterface $module_handler
   ) {
     parent::__construct(
-      'Plugin/TomeFormSecurity',
+      'Plugin/TomeFormSecurityHandler',
       $namespaces,
       $module_handler,
-      TomeFormSecurityInterface::class,
+      TomeFormSecurityHandlerInterface::class,
       TomeFormSecurity::class
     );
 

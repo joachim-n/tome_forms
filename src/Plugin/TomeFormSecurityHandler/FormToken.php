@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   label = @Translation("Form token"),
  * )
  */
-class FormToken extends TomeFormSecurityBase {
+class FormToken extends TomeFormSecurityHandlerBase {
 
   protected function getFormToken(): string {
     return 'cake';

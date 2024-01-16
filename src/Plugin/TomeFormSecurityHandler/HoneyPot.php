@@ -1,8 +1,10 @@
 <?php
 
-namespace Drupal\tome_forms\Plugin\TomeFormSecurity;
+namespace Drupal\tome_forms\Plugin\TomeFormSecurityHandler;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\tome_forms\Entity\TomeFormInterface;
+use Drupal\tome_forms\Entity\TomeFormSecurityInterface;
 
 /**
  * Adds a honeypot form element.
@@ -14,12 +16,12 @@ use Drupal\Core\Form\FormStateInterface;
  *   label = @Translation("Honey pot"),
  * )
  */
-class HoneyPot extends TomeFormSecurityBase {
+class HoneyPot extends TomeFormSecurityHandlerBase {
 
   /**
    * {@inheritdoc}
    */
-  public function formAlter(&$form, FormStateInterface $form_state): void {
+  public function formAlter(&$form, FormStateInterface $form_state, TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): void {
     // Since captcha might be bypassed without JS, and Drupal will not be there
     // to validate the submission, we add a honeypot inspired element which we
     // hide with CSS and evaluate on the action script.

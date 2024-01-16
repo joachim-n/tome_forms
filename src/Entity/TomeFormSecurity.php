@@ -5,7 +5,8 @@ namespace Drupal\tome_forms\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
-use Drupal\tome_forms\Plugin\TomeFormSecurity\TomeFormSecurityBase;
+use Drupal\tome_forms\Plugin\TomeFormSecurityHandler\TomeFormSecurityBase;
+use Drupal\tome_forms\Plugin\TomeFormSecurityHandler\TomeFormSecurityHandlerInterface;
 
 /**
  * Provides the Tome Form Security entity.
@@ -88,10 +89,9 @@ class TomeFormSecurity extends ConfigEntityBase implements TomeFormSecurityInter
   /**
    * {@inheritdoc}
    */
-  public function getFormSecurityHandlerPlugin(): TomeFormSecurityBase {
+  public function getFormSecurityHandlerPlugin(): TomeFormSecurityHandlerInterface {
     return $this->getTomeFormSecurityCollection()->get($this->security_plugin_id);
   }
-
 
   /**
    * {@inheritdoc}
