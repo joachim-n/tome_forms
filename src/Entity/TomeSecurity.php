@@ -10,10 +10,10 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *
  * @ConfigEntityType(
  *   id = "tome_security",
- *   label = @Translation("Tome Security"),
- *   label_collection = @Translation("Tome Securitys"),
+ *   label = @Translation("Tome security"),
+ *   label_collection = @Translation("Tome security handlers"),
  *   label_singular = @Translation("tome security"),
- *   label_plural = @Translation("tome securitys"),
+ *   label_plural = @Translation("tome security handlers"),
  *   label_count = @PluralTranslation(
  *     singular = "@count tome security",
  *     plural = "@count tome securitys",
