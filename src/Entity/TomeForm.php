@@ -157,6 +157,10 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
     return $this->getFormHandlerPlugin()->getFormHandlerScriptPhp($this);
   }
 
+  public function getFormSecurityHandlers(): array {
+    return \Drupal::service('entity_type.manager')->getStorage('tome_form_security')->loadMultiple($this->security);
+  }
+
   /**
    * {@inheritdoc}
    */

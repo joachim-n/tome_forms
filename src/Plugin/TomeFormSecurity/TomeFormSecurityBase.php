@@ -9,4 +9,8 @@ use Drupal\Component\Plugin\PluginBase;
  */
 abstract class TomeFormSecurityBase extends PluginBase implements TomeFormSecurityInterface {
 
+  // or only on local???
+  public function getFormHandlerScriptSecurityCheckPhp(): array {
+    return [];
+  }
 }

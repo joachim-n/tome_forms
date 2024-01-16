@@ -51,4 +51,7 @@ interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginColle
    */
   public function getFormHandlerScriptPhp(): string;
 
+
+  public function getFormSecurityHandlers(): array;
+
 }

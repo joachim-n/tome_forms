@@ -10,4 +10,6 @@ use Drupal\Component\Plugin\PluginInspectionInterface;
  */
 interface TomeFormSecurityInterface extends PluginInspectionInterface, DerivativeInspectionInterface {
 
+  public function getFormHandlerScriptSecurityCheckPhp(): array;
+
 }

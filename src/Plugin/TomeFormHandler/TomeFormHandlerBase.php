@@ -23,7 +23,7 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
    *  - Defines a redirect() function which sends the user to the front page of
    *    the site.
    *  - Checks the form ID.
-   *  - Checks the honeypot.
+   *  - Checks security handlers.
    *
    * @return string
    *   The PHP code.
@@ -49,12 +49,14 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
     $redirect_path = $tome_form->getRedirectPath();
     $php_lines[] = "function redirect() { header('Location: $redirect_path'); exit(); }";
 
-    // Verification code.
+    // Verification code: form ID.
     $php_lines[] = '// Verify the form ID.';
     $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { redirect(); }';
 
-    $php_lines[] = '// Verify the honeypot.';
-    $php_lines[] = 'if (!empty($_POST[\'h_mail\'])) { redirect(); }';
+    // Verification code: security handlers.
+    foreach ($tome_form->getFormSecurityHandlers() as $form_security_handler) {
+      $php_lines = array_merge($php_lines, $form_security_handler->getFormHandlerScriptSecurityCheckPhp());
+    }
 
     $php = implode("\n", $php_lines) . "\n";
 

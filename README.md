@@ -21,6 +21,7 @@ information, see
 ## Configuration
 
 1. Go to Administration › Structure › Tome forms.
+TODO create form security handlers
 2. Click 'Add Tome form' to create a new Tome form configuration.
 3. Enter the form ID of a form to use as a Tome static form.
 4. Optionally, enter paths to export in Tome. If the path(s) on which your form
@@ -44,7 +45,7 @@ When the Tome static site is exported, a PHP script file is written to the
 
 Forms in the HTML output which are the target of a Tome form config entity are
 altered so that their form action points to the corresponding script. They also
-have a honeypot form element added.
+have a honeypot form element added. TODO!
 
 The script verifies the incoming form ID and the honeypot element. Further
 actions of the script are specific to the form handler plugin. For example, the

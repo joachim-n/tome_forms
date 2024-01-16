@@ -12,4 +12,13 @@ namespace Drupal\tome_forms\Plugin\TomeFormSecurity;
  */
 class HoneyPot extends TomeFormSecurityBase {
 
+  public function getFormHandlerScriptSecurityCheckPhp(): array {
+    $php_lines = [];
+
+    $php_lines[] = '// Verify the honeypot.';
+    $php_lines[] = 'if (!empty($_POST[\'h_mail\'])) { redirect(); }';
+
+    return $php_lines;
+  }
+
 }
