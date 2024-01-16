@@ -62,13 +62,17 @@ class TomeFormForm extends EntityForm {
     ];
 
     $options = [];
-    $security_entities = $this->entityTypeManager->getStorage()->loadMultiple();
+    $form_security_entities = $this->entityTypeManager->getStorage('tome_form_security')->loadMultiple();
+    // TODO: filter on local/remote
+    foreach ($form_security_entities as $form_security_entity) {
+      $options[$form_security_entity->id()] = $form_security_entity->label();
+    }
 
     $form['security'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t("Security handling"),
       '#description' => $this->t("Select which security handling to use with this form on the static site."),
-      '#options' => [],
+      '#options' => $options,
       '#default_value' => $this->entity->get('security'),
     ];
 
