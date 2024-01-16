@@ -5,6 +5,7 @@ namespace Drupal\tome_forms\Entity;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
 
 /**
  * Interface for Tome Form entities.
@@ -56,6 +57,7 @@ interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginColle
    */
   public function getFormHandlerScriptPhp(): string;
 
+  public function getFormHandlerPlugin(): TomeFormHandlerInterface;
 
   public function getFormSecurityHandlers(): array;
 
