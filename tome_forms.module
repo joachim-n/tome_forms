@@ -31,7 +31,7 @@ function tome_forms_form_alter(&$form, FormStateInterface $form_state, $form_id)
   // Only act within a Tome export request.
   $request = \Drupal::request();
   if ($request->attributes->get(StaticGeneratorInterface::REQUEST_KEY) != StaticGeneratorInterface::REQUEST_KEY) {
-    // return;
+    return;
   }
 
   $tome_form_storage = \Drupal::service('entity_type.manager')->getStorage('tome_form');
