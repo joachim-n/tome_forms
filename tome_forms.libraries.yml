@@ -3,6 +3,3 @@ honey_pot:
   css:
     base:
       css/honey-pot.css: {  }
-  dependencies:
-    - core/jquery
-    - core/drupal
