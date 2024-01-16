@@ -29,7 +29,7 @@ class TomeFormSecurityForm extends EntityForm {
       '#description' => $this->t("A unique machine-readable name for this entity. It must only contain lowercase letters, numbers, and underscores."),
       '#default_value' => $this->entity->id(),
       '#machine_name' => [
-        'exists' => ['Drupal\tome_forms\Entity\TomeSecurity', 'load'],
+        'exists' => ['Drupal\tome_forms\Entity\TomeFormSecurity', 'load'],
         'source' => ['label'],
       ],
     ];
