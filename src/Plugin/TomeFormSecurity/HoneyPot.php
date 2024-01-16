@@ -3,7 +3,9 @@
 namespace Drupal\tome_forms\Plugin\TomeFormSecurity;
 
 /**
- * TODO: class docs.
+ * Adds a honeypot form element.
+ *
+ * This is hidden with CSS and verified by the local PHP script.
  *
  * @TomeFormSecurity(
  *   id = "honey_pot",
