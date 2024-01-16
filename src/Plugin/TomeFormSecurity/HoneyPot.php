@@ -16,6 +16,9 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class HoneyPot extends TomeFormSecurityBase {
 
+  /**
+   * {@inheritdoc}
+   */
   public function formAlter(&$form, FormStateInterface $form_state): void {
     // Since captcha might be bypassed without JS, and Drupal will not be there
     // to validate the submission, we add a honeypot inspired element which we
@@ -29,6 +32,9 @@ class HoneyPot extends TomeFormSecurityBase {
     $form['#attached']['library'] = 'tome_forms/tome_forms';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getFormHandlerScriptSecurityCheckPhp(): array {
     $php_lines = [];
 
