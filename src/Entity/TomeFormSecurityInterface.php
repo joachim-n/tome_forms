@@ -8,6 +8,6 @@ use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 /**
  * Interface for Tome Security entities.
  */
-interface TomeSecurityInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface {
+interface TomeFormSecurityInterface extends ConfigEntityInterface, EntityWithPluginCollectionInterface {
 
 }

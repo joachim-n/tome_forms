@@ -48,7 +48,7 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *   },
  * )
  */
-class TomeSecurity extends ConfigEntityBase implements TomeSecurityInterface {
+class TomeFormSecurity extends ConfigEntityBase implements TomeFormSecurityInterface {
 
   /**
    * Machine name.
