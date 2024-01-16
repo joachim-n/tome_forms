@@ -3,6 +3,7 @@
 namespace Drupal\tome_forms\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
 use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
 
@@ -132,6 +133,16 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   public function getExportPaths(): array {
     return $this->export_paths;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function formAlter(&$form, FormStateInterface $form_state): void {
+    // Allow the form security entities to alter the form.
+    foreach ($this->getFormSecurityHandlers() as $form_security_handler) {
+      $form_security_handler->formAlter($form, $form_state);
+    }
   }
 
   /**

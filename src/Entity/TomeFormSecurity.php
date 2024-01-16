@@ -3,6 +3,7 @@
 namespace Drupal\tome_forms\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
 use Drupal\tome_forms\Plugin\TomeFormSecurity\TomeFormSecurityBase;
 
@@ -75,6 +76,10 @@ class TomeFormSecurity extends ConfigEntityBase implements TomeFormSecurityInter
    * @var \Drupal\Core\Plugin\DefaultSingleLazyPluginCollection
    */
   protected $pluginCollection;
+
+  public function formAlter(&$form, FormStateInterface $form_state): void {
+    $this->getFormSecurityHandlerPlugin()->formAlter($form, $form_state);
+  }
 
   public function getFormHandlerScriptSecurityCheckPhp(): array {
     return $this->getFormSecurityHandlerPlugin()->getFormHandlerScriptSecurityCheckPhp($this);

@@ -4,6 +4,7 @@ namespace Drupal\tome_forms\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Interface for Tome Form entities.
@@ -34,6 +35,8 @@ interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginColle
    *   An array of paths.
    */
   public function getExportPaths(): array;
+
+  public function formAlter(&$form, FormStateInterface $form_state): void;
 
   /**
    * Gets the path to redirect to after static form submission.
