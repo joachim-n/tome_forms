@@ -53,14 +53,16 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
     $redirect_path = $tome_form->getRedirectPath();
     $php_lines[] = "function redirect() { header('Location: $redirect_path'); exit(); }";
 
-    // Verification code: form ID.
-    $php_lines[] = '// Verify the form ID.';
-    $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { redirect(); }';
-
     // Verification code: security handlers.
+    // We put these first to allow the script to be used in other circumstances
+    // then a form submission: see the FormToken plugin.
     foreach ($tome_form->getFormSecurityHandlers() as $form_security_handler) {
       $php_lines = array_merge($php_lines, $form_security_handler->getFormHandlerScriptSecurityCheckPhp($tome_form));
     }
+
+    // Verification code: form ID.
+    $php_lines[] = '// Verify the form ID.';
+    $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { redirect(); }';
 
     $php = implode("\n", $php_lines) . "\n";
 
