@@ -44,8 +44,8 @@ class FormToken extends TomeFormSecurityHandlerBase {
 
     $form_token = $this->getFormToken($tome_form);
 
-    $php_lines[] = '// Output the form token.';
-    $php_lines[] = "if (\$_SERVER['REQUEST_METHOD'] === 'GET') { return $form_token; }";
+    $php_lines[] = '// Output the form token for a GET request used by the form JavaScript.';
+    $php_lines[] = "if (\$_SERVER['REQUEST_METHOD'] === 'GET') { print '$form_token'; exit(); }";
 
     $php_lines[] = '// Verify the form token.';
     $php_lines[] = "if (empty(\$_POST['tome_form_token']) || \$_POST['tome_form_token'] != '$form_token' ) { redirect(); }";

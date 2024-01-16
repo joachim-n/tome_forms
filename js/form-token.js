@@ -3,21 +3,13 @@
  * Defines Javascript behaviors for the Tome Forms module. TODO
  */
 
-(function ($, Drupal, drupalSettings) {
-  'use strict';
+// Drupal.behaviors is not working for FKW reasons, so ditching it. There's no
+// AJAX anyway!
+(async () => {
+  const response = await fetch(drupalSettings.tome_forms.formTokenPath);
+  const token = await response.text();
+  console.log(token);
 
-  Drupal.behaviors.tomeForms = {
-    attach: function (context, settings) {
-      console.log(drupalSettings.tome_forms.formTokenPath);
-      console.log('fuck');
+  document.getElementsByName('tome_form_token')[0].value = token;
+})()
 
-      const response = fetch(drupalSettings.tome_forms.formTokenPath);
-      const token = response.body;
-      console.log(token);
-
-      document.getElementsByName('tome_form_token')[0].value = token;
-
-      // tome_form_token
-    }
-  };
-})(Drupal, drupalSettings);
