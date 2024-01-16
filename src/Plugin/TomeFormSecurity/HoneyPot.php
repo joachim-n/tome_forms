@@ -29,7 +29,7 @@ class HoneyPot extends TomeFormSecurityBase {
     ];
 
     // Hides the honeypot element.
-    $form['#attached']['library'] = 'tome_forms/tome_forms';
+    $form['#attached']['library'] = 'tome_forms/honey_pot';
   }
 
   /**

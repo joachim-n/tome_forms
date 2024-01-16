@@ -1,8 +1,8 @@
-tome_forms:
+honey_pot:
   version: 1.x
   css:
     base:
-      css/tome-forms.css: {  }
+      css/honey-pot.css: {  }
   dependencies:
     - core/jquery
     - core/drupal
