@@ -40,6 +40,7 @@ use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
  *     "form_id",
  *     "export_paths",
  *     "redirect_path",
+ *     "security",
  *     "form_handler_id",
  *     "form_handler_config",
  *   },
@@ -88,6 +89,15 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    * @var string
    */
   protected $redirect_path = '';
+
+  /**
+   * The tome form security to use with this form.
+   *
+   * An array of tome form security config entity IDs.
+   *
+   * @var array
+   */
+  protected $security = [];
 
   /**
    * The ID of the form handler plugin this form uses for static submission.
