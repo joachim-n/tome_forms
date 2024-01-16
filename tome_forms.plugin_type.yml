@@ -1,12 +1,8 @@
-tome_forms.static_form_handler:
-  label: 'Static Form Handler'
-  plugin_manager_service_id: plugin.manager.tome_forms_static_form_handler
-  plugin_definition_decorator_class: Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
 tome_forms.tome_form_handler:
   label: 'Tome Form Handler'
-  plugin_manager_service_id: plugin.manager.tome_forms_tome_form_handler
+  plugin_manager_service_id: plugin.manager.tome_form_handler
   plugin_definition_decorator_class: Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
 tome_forms.tome_form_security:
   label: 'Tome Form Security'
-  plugin_manager_service_id: plugin.manager.tome_forms_tome_form_security
+  plugin_manager_service_id: plugin.manager.tome_form_security
   plugin_definition_decorator_class: Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator

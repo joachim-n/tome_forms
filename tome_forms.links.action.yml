@@ -1,6 +1,12 @@
 entity.tome_form.add:
-  title: 'Add Tome form'
+  title: 'Add Tome Form'
   route_name: entity.tome_form.add_form
   weight: 15
   appears_on:
     - entity.tome_form.collection
+entity.tome_security.add:
+  title: 'Add Tome Security'
+  route_name: entity.tome_security.add_form
+  weight: 15
+  appears_on:
+    - entity.tome_security.collection
