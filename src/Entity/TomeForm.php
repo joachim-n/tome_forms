@@ -153,6 +153,10 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
     return $this->redirect_path ?: '/';
   }
 
+  public function useLocalScript(): bool {
+    return $this->getFormHandlerPlugin()->hasLocalScript();
+  }
+
   /**
    * {@inheritdoc}
    */

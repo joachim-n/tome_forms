@@ -46,9 +46,11 @@ class StaticFormSubscriber implements EventSubscriberInterface {
     $tome_form_entities = $tome_form_storage->loadMultiple();
     /** @var \Drupal\tome_forms\Entity\TomeFormInterface */
     foreach ($tome_form_entities as $tome_form_entity_id => $tome_form_entity) {
-      // Add the path for the form's PHP script.
-      // TODO: build this with the Url class and the route name!
-      $event->addPath('/tome-form-handler/' . $tome_form_entity_id);
+      if ($tome_form_entity->useLocalScript()) {
+        // Add the path for the form's PHP script.
+        // TODO: build this with the Url class and the route name!
+        $event->addPath('/tome-form-handler/' . $tome_form_entity_id);
+      }
 
       // Add any additional paths for the form.
       foreach ($tome_form_entity->getExportPaths() as $path) {

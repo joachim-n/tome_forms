@@ -10,6 +10,10 @@ use Drupal\tome_forms\Entity\TomeFormInterface;
  */
 abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandlerInterface {
 
+  public function hasLocalScript(): bool {
+    return $this->pluginDefinition['local_script'];
+  }
+
   /**
    * Gets the header for the PHP script.
    *

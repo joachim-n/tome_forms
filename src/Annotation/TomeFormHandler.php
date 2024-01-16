@@ -34,4 +34,11 @@ class TomeFormHandler extends Plugin {
    */
   public $description = '';
 
+  /**
+   * Whether this plugin uses a local script.
+   *
+   * @var bool
+   */
+  public $local_script;
+
 }

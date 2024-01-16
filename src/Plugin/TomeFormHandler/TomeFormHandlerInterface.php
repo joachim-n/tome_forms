@@ -11,6 +11,8 @@ use Drupal\tome_forms\Entity\TomeFormInterface;
  */
 interface TomeFormHandlerInterface extends PluginInspectionInterface, DerivativeInspectionInterface {
 
+  public function hasLocalScript(): bool;
+
   /**
    * Gets the PHP code for the form handler script.
    *

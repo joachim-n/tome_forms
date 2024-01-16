@@ -19,6 +19,8 @@ interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginColle
    */
   public function getFormId(): string;
 
+  public function useLocalScript(): bool;
+
   /**
    * Gets the relative path for the static export form to submit to.
    *
