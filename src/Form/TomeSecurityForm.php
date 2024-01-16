@@ -3,6 +3,7 @@
 namespace Drupal\tome_forms\Form;
 
 use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -47,6 +48,16 @@ class TomeSecurityForm extends EntityForm {
     ];
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function copyFormValuesToEntity(EntityInterface $entity, array $form, FormStateInterface $form_state) {
+    parent::copyFormValuesToEntity($entity, $form, $form_state);
+
+    $entity->set('security_plugin_id', $form_state->getValue(['security', 'plugin_id']));
+    $entity->set('security_plugin_config', $form_state->getValue(['security', 'plugin_configuration']) ?? []);
   }
 
   /**
