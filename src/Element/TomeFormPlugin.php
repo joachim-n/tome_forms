@@ -86,7 +86,7 @@ class TomeFormPlugin extends FormElement {
 
     $element['container']['plugin_id'] = [
       '#type' => $element['#options_element_type'],
-      '#title' => t("Form handler type"),
+      '#title' => t("Form handler type"), // ARGH! TODO
       '#options' => [],
       '#empty_value' => '',
       '#required' => $element['#required'],
