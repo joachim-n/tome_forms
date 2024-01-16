@@ -40,11 +40,11 @@ use Drupal\Core\Plugin\DefaultSingleLazyPluginCollection;
  *     "security_plugin_config",
  *   },
  *   links = {
- *     "add-form" = "/admin/structure/tome_security/add",
- *     "canonical" = "/admin/structure/tome_security/{tome_security}",
- *     "collection" = "/admin/structure/tome_security",
- *     "edit-form" = "/admin/structure/tome_security/{tome_security}/edit",
- *     "delete-form" = "/admin/structure/tome_security/{tome_security}/delete",
+ *     "add-form" = "/admin/config/tome/static/tome_security/add",
+ *     "canonical" = "/admin/config/tome/static/tome_security/{tome_security}",
+ *     "collection" = "/admin/config/tome/static/tome_security",
+ *     "edit-form" = "/admin/config/tome/static/tome_security/{tome_security}/edit",
+ *     "delete-form" = "/admin/config/tome/static/tome_security/{tome_security}/delete",
  *   },
  * )
  */

@@ -1,10 +1,5 @@
 entity.tome_form.collection:
-  title: 'Tome Forms'
+  title: 'Tome forms'
   description: 'Create and manage fields, forms, and display settings for Tome Forms.'
   route_name: entity.tome_form.collection
-  parent: system.admin_structure
-entity.tome_security.collection:
-  title: 'Tome Security'
-  description: 'Create and manage fields, forms, and display settings for Tome Security.'
-  route_name: entity.tome_security.collection
-  parent: system.admin_structure
+  parent: tome_static.main

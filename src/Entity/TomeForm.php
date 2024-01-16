@@ -44,11 +44,11 @@ use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
  *     "form_handler_config",
  *   },
  *   links = {
- *     "add-form" = "/admin/structure/tome_form/add",
- *     "canonical" = "/admin/structure/tome_form/{tome_form}",
- *     "collection" = "/admin/structure/tome_form",
- *     "edit-form" = "/admin/structure/tome_form/{tome_form}/edit",
- *     "delete-form" = "/admin/structure/tome_form/{tome_form}/delete",
+ *     "add-form" = "/admin/config/tome/static/tome_form/add",
+ *     "canonical" = "/admin/config/tome/static/tome_form/{tome_form}",
+ *     "collection" = "/admin/config/tome/static/tome_form",
+ *     "edit-form" = "/admin/config/tome/static/tome_form/{tome_form}/edit",
+ *     "delete-form" = "/admin/config/tome/static/tome_form/{tome_form}/delete",
  *   },
  * )
  */

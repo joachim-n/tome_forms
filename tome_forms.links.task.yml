@@ -1,3 +1,13 @@
+entity.tome_form.collection:
+  title: 'Tome forms'
+  description: 'Create and manage fields, forms, and display settings for Tome Forms.'
+  route_name: entity.tome_form.collection
+  base_route: entity.tome_form.collection
+entity.tome_security.collection:
+  title: 'Tome forms security'
+  description: 'Create and manage fields, forms, and display settings for Tome Security.'
+  route_name: entity.tome_security.collection
+  base_route: entity.tome_form.collection
 entity.tome_form.edit_form:
   title: Edit
   route_name: entity.tome_form.edit_form
