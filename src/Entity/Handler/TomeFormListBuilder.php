@@ -18,6 +18,7 @@ class TomeFormListBuilder extends EntityListBuilder {
     $header['name'] = $this->t('Name');
     $header['form_id'] = $this->t('Form ID');
     $header['form_handler'] = $this->t('Form handler');
+    $header['form_security'] = $this->t('Form security');
     return $header + parent::buildHeader();
   }
 
@@ -30,6 +31,7 @@ class TomeFormListBuilder extends EntityListBuilder {
     $row['name'] = $entity->label();
     $row['form_id'] = $entity->getFormId();
     $row['form_handler'] = $entity->getFormHandlerPlugin()->getPluginDefinition()['label'];
+    $row['form_security'] = implode(', ', array_map(fn ($form_security) => $form_security->label(), $entity->getFormSecurityHandlers()));
     return $row + parent::buildRow($entity);
   }
 
