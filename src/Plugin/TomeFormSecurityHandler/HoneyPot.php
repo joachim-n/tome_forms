@@ -42,7 +42,7 @@ class HoneyPot extends TomeFormSecurityHandlerBase {
     $php_lines = [];
 
     $php_lines[] = '// Verify the honeypot.';
-    $php_lines[] = 'if (!empty($_POST[\'h_mail\'])) { redirect(); }';
+    $php_lines[] = 'if (!empty($_POST[\'h_mail\'])) { redirectReject(); }';
     $php_lines[] = 'unset($_POST[\'h_mail\']);';
 
     return $php_lines;

@@ -133,16 +133,16 @@ class FormToken extends TomeFormSecurityHandlerBase implements ConfigurableInter
     // Verify the form token.
     // 1. Verify the values were submitted.
     if (empty(\$_POST['tome_form_token']) || empty(\$_POST['tome_form_timestamp'])) {
-      redirect();
+      redirectReject();
     }
     // 2. Verify timestamp is not too old. Use the same cache expiry time as
     // Drupal's default, which is 6 hours.
     if (\$_POST['tome_form_timestamp'] < time() - $expiry) {
-      redirect();
+      redirectReject();
     }
     // 3. Verify the token.
     \$expected_token = base64_encode(hash('sha256', '$form_token_salt' . \$_POST['tome_form_timestamp'], TRUE));
-    if (\$_POST['tome_form_token'] != \$expected_token ) { redirect(); }
+    if (\$_POST['tome_form_token'] != \$expected_token ) { redirectReject(); }
 
     // Remove our form values from $_POST now we are done with them.
     unset(\$_POST['tome_form_token']);

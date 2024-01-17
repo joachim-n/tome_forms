@@ -24,7 +24,7 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
    *    - $form_id: The form ID.
    *    - the plugin configuration (see self::getScriptPluginConfigurationVariables())
    *    - various other site properties TODO.
-   *  - Defines a redirect() function which sends the user to the front page of
+   *  - Defines a redirectSuccess() function which sends the user to the front page of
    *    the site.
    *  - Checks the form ID.
    *  - Checks security handlers.
@@ -49,9 +49,11 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
       $php_lines[] = '$' . $key . ' = ' . var_export($value, TRUE) . ';';
     }
 
-    // Helper function for redirecting.
-    $redirect_path = $tome_form->getRedirectSuccessPath();
-    $php_lines[] = "function redirect() { header('Location: $redirect_path'); exit(); }";
+    // Helper functions for redirecting.
+    $redirect_success_path = $tome_form->getRedirectSuccessPath();
+    $php_lines[] = "function redirectSuccess() { header('Location: $redirect_success_path'); exit(); }";
+    $redirect_reject_path = $tome_form->getRedirectRejectPath();
+    $php_lines[] = "function redirectReject() { header('Location: $redirect_reject_path'); exit(); }";
 
     // Verification code: security handlers.
     // We put these first to allow the script to be used in other circumstances
@@ -62,7 +64,7 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
 
     // Verification code: form ID.
     $php_lines[] = '// Verify the form ID.';
-    $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { redirect(); }';
+    $php_lines[] = 'if (!isset($_POST[\'form_id\']) || ($_POST[\'form_id\'] !== $form_id)) { redirectSuccess(); }';
 
     $php = implode("\n", $php_lines) . "\n";
 

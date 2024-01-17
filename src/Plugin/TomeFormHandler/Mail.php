@@ -119,7 +119,7 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
       }
 
       // Redirect back to site.
-      redirect();
+      redirectSuccess();
       EOPHP;
 
     return $php;
