@@ -144,6 +144,10 @@ class FormToken extends TomeFormSecurityHandlerBase implements ConfigurableInter
     \$expected_token = base64_encode(hash('sha256', '$form_token_salt' . \$_POST['tome_form_timestamp'], TRUE));
     if (\$_POST['tome_form_token'] != \$expected_token ) { redirect(); }
 
+    // Remove our form values from $_POST now we are done with them.
+    unset(\$_POST['tome_form_token']);
+    unset(\$_POST['tome_form_timestamp']);
+
     EOCODE;
 
     return [$php];
