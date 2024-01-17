@@ -56,8 +56,6 @@ class FormToken extends TomeFormSecurityHandlerBase {
    * {@inheritdoc}
    */
   public function getFormHandlerScriptSecurityCheckPhp(TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): array {
-    $php_lines = [];
-
     $form_id = $tome_form->getFormId();
 
     $php = <<<EOCODE
@@ -74,11 +72,15 @@ class FormToken extends TomeFormSecurityHandlerBase {
     if (empty(\$_POST['tome_form_token']) || empty(\$_POST['tome_form_timestamp'])) {
       redirect();
     }
-    // 2. TODO: timestamp age.
-
+    // 2. Verify timestamp is not too old. Use the same cache expiry time as
+    // Drupal's default, which is 6 hours.
+    if (\$_POST['tome_form_timestamp'] < time() - 21600) {
+      redirect();
+    }
     // 3. Verify the token.
     \$expected_token = base64_encode(hash('sha256', '$form_id' . \$_POST['tome_form_timestamp'], TRUE));
     if (\$_POST['tome_form_token'] != \$expected_token ) { redirect(); }
+
     EOCODE;
 
     // $php_lines[] = '$request_time = time();';
