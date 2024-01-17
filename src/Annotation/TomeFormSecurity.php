@@ -27,4 +27,11 @@ class TomeFormSecurity extends Plugin {
    */
   public $label = '';
 
+  /**
+   * A human-readable description of the plugin, to show in forms.
+   *
+   * @var \Drupal\Core\Annotation\Translation
+   */
+  public $description = '';
+
 }

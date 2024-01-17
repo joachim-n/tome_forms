@@ -14,6 +14,7 @@ use Drupal\tome_forms\Entity\TomeFormSecurityInterface;
  * @TomeFormSecurity(
  *   id = "honey_pot",
  *   label = @Translation("Honey pot"),
+ *   description = @Translation("Adds a hidden honeypot element to the form."),
  * )
  */
 class HoneyPot extends TomeFormSecurityHandlerBase {

@@ -28,6 +28,7 @@ use Drupal\tome_forms\Entity\TomeFormSecurityInterface;
  * @TomeFormSecurity(
  *   id = "form_token",
  *   label = @Translation("Form token"),
+ *   description = @Translation("Adds a hashed form token to the form with JavaScript. The token is produced by the PHP script and is based on a hash salt and the request time. The token expires after 6 hours."),
  * )
  */
 class FormToken extends TomeFormSecurityHandlerBase {
