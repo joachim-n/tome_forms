@@ -1,6 +1,6 @@
 /**
  * @file
- * Defines Javascript behaviors for the Tome Forms module. TODO
+ * Adds values from the PHP script into the form.
  */
 
 // Drupal.behaviors is not working for FKW reasons, so ditching it. There's no
