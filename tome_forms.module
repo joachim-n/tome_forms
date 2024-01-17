@@ -46,11 +46,13 @@ function tome_forms_form_alter(&$form, FormStateInterface $form_state, $form_id)
     // Hand over to the Tome form entity to make alterations.
     $tome_form_entity->formAlter($form, $form_state);
 
-    // Set the form action to the form handler script for this Tome form entity
-    // and ensure the form method is POST.
-    $form['#action'] = $tome_form_entity->getFormHandlerExportedScriptPath();
-    $form['#method'] = 'post';
-    // dsm($form);
+    // Set the form action to the form handler script for this Tome form
+    // entity and ensure the form method is POST. Form handler plugins that
+    // don't use a local script should make their own changes in formAlter().
+    if ($tome_form_entity->useLocalScript()) {
+      $form['#action'] = $tome_form_entity->getFormHandlerExportedScriptPath();
+      $form['#method'] = 'post';
+    }
 
     // Only one Tome form entity should act on a single form, so we're done.
     return;
