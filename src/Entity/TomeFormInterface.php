@@ -39,6 +39,16 @@ interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginColle
    */
   public function getExportPaths(): array;
 
+  /**
+   * Alters the form.
+   *
+   * This hands over to any form security entities to alter the form.
+   *
+   * @param array $form
+   *   The form build array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   */
   public function formAlter(&$form, FormStateInterface $form_state): void;
 
   /**
