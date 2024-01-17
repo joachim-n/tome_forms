@@ -10,6 +10,9 @@ use Drupal\tome_forms\Entity\TomeFormInterface;
  */
 abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandlerInterface {
 
+  /**
+   * {@inheritdoc}
+   */
   public function hasLocalScript(): bool {
     return $this->pluginDefinition['local_script'];
   }
@@ -22,10 +25,13 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
    * This does the following:
    *  - Defines the following variables in the script:
    *    - $form_id: The form ID.
-   *    - the plugin configuration (see self::getScriptPluginConfigurationVariables())
+   *    - the plugin configuration (see
+   *      self::getScriptPluginConfigurationVariables())
    *    - various other site properties TODO.
-   *  - Defines a redirectSuccess() function which sends the user to the front page of
-   *    the site.
+   *  - Defines a redirectSuccess() function which sends the user to the
+   *    configured success path.
+   *  - Defines a redirectReject() function which sends the user to the
+   *    configured rejection path.
    *  - Checks the form ID.
    *  - Checks security handlers.
    *
