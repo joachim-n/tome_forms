@@ -148,7 +148,7 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   /**
    * {@inheritdoc}
    */
-  public function getRedirectPath(): string {
+  public function getRedirectSuccessPath(): string {
     // Default to the front page if the property is empty.
     return $this->redirect_success_path ?: '/';
   }
