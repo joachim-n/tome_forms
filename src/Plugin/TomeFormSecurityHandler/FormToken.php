@@ -61,7 +61,7 @@ class FormToken extends TomeFormSecurityHandlerBase {
     $form_id = $tome_form->getFormId();
 
     $php_lines[] = "\$form_token = base64_encode(hash('sha256', '$form_id', TRUE));";
-    $php_lines[] = '// Output the form token for a GET request used by the form JavaScript.';
+    $php_lines[] = '// Output values for the form JavaScript for a GET request.';
     $php_lines[] = "if (\$_SERVER['REQUEST_METHOD'] === 'GET') { print json_encode(['token' => \$form_token, 'timestamp' => time()]); exit(); }";
 
     $php_lines[] = '// Verify the form token.';
