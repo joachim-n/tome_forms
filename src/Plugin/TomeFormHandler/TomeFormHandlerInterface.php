@@ -16,7 +16,8 @@ interface TomeFormHandlerInterface extends PluginInspectionInterface, Derivative
   /**
    * Gets the PHP code for the form handler script.
    *
-   * All plugins should begin their script with getScriptHeader().
+   * All plugins should begin their script with getScriptHeader(), which takes
+   * care of form security, and defines useful variables.
    *
    * @param \Drupal\tome_forms\Entity\TomeFormInterface $tome_form
    *   The Tome form entity.

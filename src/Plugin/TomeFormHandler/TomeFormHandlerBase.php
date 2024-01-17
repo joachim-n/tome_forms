@@ -20,8 +20,8 @@ abstract class TomeFormHandlerBase extends PluginBase implements TomeFormHandler
    * All plugins should begin their script with this code.
    *
    * This does the following:
-   *  - Defines variables for:
-   *    - the form ID
+   *  - Defines the following variables in the script:
+   *    - $form_id: The form ID.
    *    - the plugin configuration (see self::getScriptPluginConfigurationVariables())
    *    - various other site properties TODO.
    *  - Defines a redirect() function which sends the user to the front page of
