@@ -1,5 +1,5 @@
 entity.tome_form.collection:
   title: 'Tome forms'
-  description: 'Create and manage fields, forms, and display settings for Tome Forms.'
+  description: 'Configure forms to be available on the static build.'
   route_name: entity.tome_form.collection
   parent: tome_static.main
