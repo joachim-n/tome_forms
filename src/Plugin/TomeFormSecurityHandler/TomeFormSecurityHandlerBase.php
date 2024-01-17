@@ -12,11 +12,17 @@ use Drupal\tome_forms\Entity\TomeFormSecurityInterface;
  */
 abstract class TomeFormSecurityHandlerBase extends PluginBase implements TomeFormSecurityHandlerInterface {
 
+  /**
+   * {@inheritdoc}
+   */
   public function formAlter(&$form, FormStateInterface $form_state, TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): void {
   }
 
-  // or only on local???
+  /**
+   * {@inheritdoc}
+   */
   public function getFormHandlerScriptSecurityCheckPhp(TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): array {
     return [];
   }
+
 }
