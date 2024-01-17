@@ -2,8 +2,11 @@
 
 namespace Drupal\tome_forms\Plugin\TomeFormSecurityHandler;
 
+use Drupal\Component\Plugin\ConfigurableInterface;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\tome_forms\Entity\TomeFormInterface;
 use Drupal\tome_forms\Entity\TomeFormSecurityInterface;
 
@@ -11,7 +14,7 @@ use Drupal\tome_forms\Entity\TomeFormSecurityInterface;
  * Uses a form token to verify form submission.
  *
  * This adds a token to the form using JavaScript, which is then verified by the
- * PHP script.
+ * PHP script. The token expires after a configurable interval.
  *
  * This works as follows:
  *  1. The form's JavaScript makes an HTTP request to the PHP script.
@@ -25,13 +28,68 @@ use Drupal\tome_forms\Entity\TomeFormSecurityInterface;
  * The PHP script thus does double duty: for a GET request it returns the values
  * for the form, and for a POST request it handle the form submission as normal.
  *
+ * @todo Remove methods for ConfigurableInterface when
+ * https://www.drupal.org/project/drupal/issues/2852463 gets in.
+ *
  * @TomeFormSecurity(
  *   id = "form_token",
  *   label = @Translation("Form token"),
- *   description = @Translation("Adds a hashed form token to the form with JavaScript. The token is produced by the PHP script and is based on a hash salt and the request time. The token expires after 6 hours."),
+ *   description = @Translation("Adds a hashed form token to the form with JavaScript. The token is produced by the PHP script and is based on a hash salt and the request time."),
  * )
  */
-class FormToken extends TomeFormSecurityHandlerBase {
+class FormToken extends TomeFormSecurityHandlerBase implements ConfigurableInterface, PluginFormInterface {
+
+  use StringTranslationTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return [
+      'expiry' => '21600',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConfiguration(array $configuration) {
+    // Merge in default configuration.
+    $this->configuration = $configuration + $this->defaultConfiguration();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $element, FormStateInterface $form_state) {
+    $element['expiry'] = [
+      '#type' => 'number',
+      '#title' => $this->t("Form expiry time, in seconds."),
+      '#min' => 0,
+      '#required' => TRUE,
+    ];
+
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
 
   /**
    * {@inheritdoc}
@@ -61,6 +119,8 @@ class FormToken extends TomeFormSecurityHandlerBase {
     $form_id = $tome_form->getFormId();
     $form_token_salt = Crypt::hashBase64($form_id);
 
+    $expiry = $this->getConfiguration()['expiry'];
+
     $php = <<<EOCODE
     // Output values for the form JavaScript for a GET request.
     if (\$_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -77,7 +137,7 @@ class FormToken extends TomeFormSecurityHandlerBase {
     }
     // 2. Verify timestamp is not too old. Use the same cache expiry time as
     // Drupal's default, which is 6 hours.
-    if (\$_POST['tome_form_timestamp'] < time() - 21600) {
+    if (\$_POST['tome_form_timestamp'] < time() - $expiry) {
       redirect();
     }
     // 3. Verify the token.
