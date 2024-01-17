@@ -71,7 +71,7 @@ class TomeFormForm extends EntityForm {
     $form['security'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t("Security handling"),
-      '#description' => $this->t("Select which security handling to use with this form on the static site."),
+      '#description' => $this->t("The form security handlers to use with this form on the static site."),
       '#options' => $options,
       '#default_value' => $this->entity->get('security'),
     ];
