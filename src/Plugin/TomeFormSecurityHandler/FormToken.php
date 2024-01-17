@@ -56,13 +56,15 @@ class FormToken extends TomeFormSecurityHandlerBase {
    * {@inheritdoc}
    */
   public function getFormHandlerScriptSecurityCheckPhp(TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): array {
+    // Use a salt based on the Tome form entity ID.
     $form_id = $tome_form->getFormId();
+    $form_token_salt = Crypt::hashBase64($form_id);
 
     $php = <<<EOCODE
     // Output values for the form JavaScript for a GET request.
     if (\$_SERVER['REQUEST_METHOD'] === 'GET') {
       \$request_time = time();
-      \$form_token = base64_encode(hash('sha256', '$form_id' . \$request_time, TRUE));
+      \$form_token = base64_encode(hash('sha256', '$form_token_salt' . \$request_time, TRUE));
       print json_encode(['token' => \$form_token, 'timestamp' => \$request_time]);
       exit();
     }
@@ -78,23 +80,10 @@ class FormToken extends TomeFormSecurityHandlerBase {
       redirect();
     }
     // 3. Verify the token.
-    \$expected_token = base64_encode(hash('sha256', '$form_id' . \$_POST['tome_form_timestamp'], TRUE));
+    \$expected_token = base64_encode(hash('sha256', '$form_token_salt' . \$_POST['tome_form_timestamp'], TRUE));
     if (\$_POST['tome_form_token'] != \$expected_token ) { redirect(); }
 
     EOCODE;
-
-    // $php_lines[] = '$request_time = time();';
-    // $php_lines[] = "\$form_token = base64_encode(hash('sha256', '$form_id' . \$request_time, TRUE));";
-    // $php_lines[] = '// Output values for the form JavaScript for a GET request.';
-    // $php_lines[] = "if (\$_SERVER['REQUEST_METHOD'] === 'GET') {
-
-
-    //   print json_encode(['token' => \$form_token, 'timestamp' => $request_time]); exit(); }";
-
-    // use time from JS AND compare not too far in past with PHP time.
-    // SALT!
-    // $php_lines[] = '// Verify the form token.';
-    // $php_lines[] = "if (empty(\$_POST['tome_form_token']) || \$_POST['tome_form_token'] != \$form_token ) { redirect(); }";
 
     return [$php];
   }
