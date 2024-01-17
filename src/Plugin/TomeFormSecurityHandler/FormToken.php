@@ -36,6 +36,12 @@ class FormToken extends TomeFormSecurityHandlerBase {
    * {@inheritdoc}
    */
   public function formAlter(&$form, FormStateInterface $form_state, TomeFormInterface $tome_form, TomeFormSecurityInterface $tome_form_security): void {
+    $form['tome_form_timestamp'] = [
+      '#type' => 'token',
+      // Gets set by the JavaScript.
+      '#default_value' => '',
+    ];
+
     $form['tome_form_token'] = [
       '#type' => 'token',
       // Gets set by the JavaScript.
