@@ -161,6 +161,14 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
     return $this->redirect_success_path ?: '/';
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getRedirectRejectPath(): string {
+    // Default to the front page if the property is empty.
+    return $this->redirect_reject_path ?: '/';
+  }
+
   public function useLocalScript(): bool {
     return $this->getFormHandlerPlugin()->hasLocalScript();
   }

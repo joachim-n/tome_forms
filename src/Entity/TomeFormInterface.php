@@ -42,12 +42,20 @@ interface TomeFormInterface extends ConfigEntityInterface, EntityWithPluginColle
   public function formAlter(&$form, FormStateInterface $form_state): void;
 
   /**
-   * Gets the path to redirect to after static form submission.
+   * Gets the path to redirect to after a successful static form submission.
    *
    * @return string
    *   A path.
    */
   public function getRedirectSuccessPath(): string;
+
+  /**
+   * Gets the path to redirect to when a static form submission is rejected.
+   *
+   * @return string
+   *   A path.
+   */
+  public function getRedirectRejectPath(): string;
 
   /**
    * Gets the PHP code for the form handler script.
