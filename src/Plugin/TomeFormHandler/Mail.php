@@ -83,23 +83,32 @@ class Mail extends TomeFormHandlerBase implements ConfigurableInterface, PluginF
   public function getFormHandlerScriptPhp(TomeFormInterface $tome_form): string {
     $php = $this->getScriptHeader($tome_form);
 
-    // TODO! this script is too specific to the old contact form!
-
+    // $mailto is provided from the plugin configuration.
+    // TODO: send copy not yet implemented!
     $php .= <<<'EOPHP'
-      $cc = ''; // TODO
-
-      $form_submitter = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL); // this is the sender's Email address
-      $name = filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-      $subject = "Form submission on " . $_POST['host'];
-      $message = $name . " wrote the following:" . "\n\n" . filter_var($_POST['message'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+      // Remove internal form values.
+      $internal_form_keys = [
+        'form_build_id',
+        'form_id',
+        'op',
+      ];
+      foreach ($internal_form_keys as $key) {
+        unset($_POST[$key]);
+      }
 
       $headers = [
         'From: ' . $site_mail,
-        'Cc: ' . $cc,
-        'Reply-To: ' . $form_submitter,
       ];
+
+      $subject = "Form submission on " . $_SERVER['HTTP_REFERER'];
+
+      $message = "The form submission is as follows:\n\n";
+      foreach ($_POST as $key => $value) {
+        $message .= "$key: " . filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS) . "\n";
+      }
+
       // Send email to yourself, with form values.
-      mail($mailto,$subject,$message,implode("\r\n", $headers));
+      mail($mailto, $subject, $message, implode("\r\n", $headers));
 
       if ($_POST['send_copy']) {
         // Prepare a copy to send to the submitter of the form.
