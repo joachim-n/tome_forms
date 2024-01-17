@@ -40,7 +40,7 @@ use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
  *     "label",
  *     "form_id",
  *     "export_paths",
- *     "redirect_path",
+ *     "redirect_success_path",
  *     "security",
  *     "form_handler_id",
  *     "form_handler_config",
@@ -85,11 +85,11 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
   protected $export_paths = [];
 
   /**
-   * The path to redirect the user to on submission of the static form.
+   * The path to redirect the user on successful submission of the static form.
    *
    * @var string
    */
-  protected $redirect_path = '';
+  protected $redirect_success_path = '';
 
   /**
    * The tome form security to use with this form.
@@ -150,7 +150,7 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    */
   public function getRedirectPath(): string {
     // Default to the front page if the property is empty.
-    return $this->redirect_path ?: '/';
+    return $this->redirect_success_path ?: '/';
   }
 
   public function useLocalScript(): bool {
