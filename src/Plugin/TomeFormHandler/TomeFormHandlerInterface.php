@@ -11,6 +11,11 @@ use Drupal\tome_forms\Entity\TomeFormInterface;
  */
 interface TomeFormHandlerInterface extends PluginInspectionInterface, DerivativeInspectionInterface {
 
+  /**
+   * Gets whether this plugin uses a local PHP script for form submission.
+   *
+   * @return boolean
+   */
   public function hasLocalScript(): bool;
 
   /**
