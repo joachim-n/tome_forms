@@ -59,6 +59,13 @@ class TomeFormForm extends EntityForm {
       '#description' => $this->t("The URL to redirect users when the static form is submitted successfully. Leave empty to redirect to the front page of the static site."),
       '#default_value' => $this->entity->get('redirect_success_path'),
       // TODO: validate initial /.
+    ];
+
+    $form['redirect_reject_path'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t("Failure redirect URL"),
+      '#description' => $this->t("The URL to redirect users when the static form submission is rejected. Leave empty to redirect to the front page of the static site."),
+      '#default_value' => $this->entity->get('redirect_reject_path'),
       // TODO: validate initial /.
     ];
 

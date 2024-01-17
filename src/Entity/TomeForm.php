@@ -41,6 +41,7 @@ use Drupal\tome_forms\Plugin\TomeFormHandler\TomeFormHandlerInterface;
  *     "form_id",
  *     "export_paths",
  *     "redirect_success_path",
+ *     "redirect_reject_path",
  *     "security",
  *     "form_handler_id",
  *     "form_handler_config",
@@ -90,6 +91,13 @@ class TomeForm extends ConfigEntityBase implements TomeFormInterface {
    * @var string
    */
   protected $redirect_success_path = '';
+
+  /**
+   * The path to redirect the user if submission of the static form is rejected.
+   *
+   * @var string
+   */
+  protected $redirect_reject_path = '';
 
   /**
    * The tome form security to use with this form.
